@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Mochammad Yusuf Fachroni on 01/06/23.
+  
+*/
+
+"CFBundleName" = "プリネームカメラ";
+"CFBundleDisplayName" = "プリネームカメラ";
+"NSCameraUsageDescription" = "アプリで設定したファイル名で写真を撮って保存するためにカメラへのアクセスを許可します";
+"NSPhotoLibraryAddUsageDescription" = "プリセットファイル名で写真を保存するために写真へのアクセスを許可します";
+"NSPhotoLibraryUsageDescription" = "プリセットファイル名で写真を保存するために写真へのアクセスを許可します";

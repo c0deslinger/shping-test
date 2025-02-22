@@ -1,0 +1,43 @@
+@startuml
+title Attendance Application ERD
+
+entity User {
+  +user_id: int
+  ---
+  username: string
+  password: string
+  email: string
+}
+
+entity Attendance {
+  +attendance_id: int
+  ---
+  user_id: int
+  date: date
+  time: time
+  location: string
+}
+
+entity LocationService {
+  +location_id: int
+  ---
+  user_id: int
+  latitude: float
+  longitude: float
+  timestamp: datetime
+}
+
+entity Database {
+  +database_id: int
+  ---
+  name: string
+  type: string
+}
+
+User ||--o{ Attendance: "has"
+User ||--o{ LocationService: "uses"
+Database ||--o{ User: "stores"
+Database ||--o{ Attendance: "stores"
+Database ||--o{ LocationService: "stores"
+
+@enduml
