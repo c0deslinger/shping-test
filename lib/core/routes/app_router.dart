@@ -1,22 +1,22 @@
 import 'package:go_router/go_router.dart';
 import 'package:shping_test/features/favorite/ui/favorite_screen.dart';
-import 'package:shping_test/features/home/ui/screens/home_screen.dart';
+import 'package:shping_test/features/home/ui/screens/photo_list_screen.dart';
 import 'package:shping_test/features/settings/screens/settings_screen.dart';
 import 'package:shping_test/features/home/ui/screens/photo_detail_screen.dart';
-import 'package:shping_test/main_navigation_screen.dart';
+import 'package:shping_test/features/home/ui/screens/home_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: MainNavigationScreen.route,
+    initialLocation: HomeScreen.route,
     routes: [
       GoRoute(
-        path: MainNavigationScreen.route,
-        builder: (context, state) => const MainNavigationScreen(),
+        path: HomeScreen.route,
+        builder: (context, state) => const HomeScreen(),
         routes: [
           // Your existing routes can be nested here
           GoRoute(
             path: 'home',
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const PhotoListScreen(),
           ),
           GoRoute(
             path: 'favorites',

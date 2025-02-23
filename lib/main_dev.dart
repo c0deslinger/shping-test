@@ -1,5 +1,5 @@
 import 'main_common.dart';
-import 'core/utils/environment.dart';
+import 'utils/environment.dart';
 
 void main() async {
   await mainCommon(Environment.dev);

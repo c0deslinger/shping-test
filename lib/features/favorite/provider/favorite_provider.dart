@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:shping_test/core/services/db_helper.dart';
-import 'package:shping_test/core/utils/logger.dart';
+import 'package:shping_test/utils/logger.dart';
 import '../../home/data/entities/photo.dart';
 
 class FavoriteProvider with ChangeNotifier {

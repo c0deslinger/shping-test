@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shping_test/core/services/image_downloader.dart';
 import 'package:shping_test/core/services/share_image_service.dart';
-import 'package:shping_test/core/theme/text_styles.dart';
+import 'package:shping_test/theme/text_styles.dart';
 import 'package:shping_test/core/widgets/error_retry_widget.dart';
 import 'package:shping_test/core/widgets/glass_container.dart';
 import 'package:shping_test/core/widgets/shimmer_loading.dart';

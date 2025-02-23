@@ -6,8 +6,8 @@ import 'package:shping_test/features/home/data/datasource/remote/photo_api_datas
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/data/models/unsplash/unsplash_list_photo_response.dart';
 import 'package:shping_test/features/home/data/models/unsplash/unsplash_photo_detail_response.dart';
-import 'package:shping_test/core/utils/config_reader.dart';
-import 'package:shping_test/core/utils/logger.dart';
+import 'package:shping_test/utils/config_reader.dart';
+import 'package:shping_test/utils/logger.dart';
 
 class UnsplashApiDataSource implements PhotoApiDataSource {
   final String _baseUrl = ConfigReader.getUnsplashApiUrl();

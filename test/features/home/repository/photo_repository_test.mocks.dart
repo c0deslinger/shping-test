@@ -33,13 +33,13 @@ import 'package:shping_test/features/home/data/entities/photo.dart' as _i2;
 
 class _FakePhoto_0 extends _i1.SmartFake implements _i2.Photo {
   _FakePhoto_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+      : super(parent, parentInvocation);
 }
 
 class _FakeDatabaseHelper_1 extends _i1.SmartFake
     implements _i3.DatabaseHelper {
   _FakeDatabaseHelper_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+      : super(parent, parentInvocation);
 }
 
 /// A class which mocks [PhotoApiDataSource].
@@ -50,13 +50,12 @@ class MockPhotoApiDataSource extends _i1.Mock
   @override
   _i5.Future<List<_i2.Photo>> getPhotos({int? page = 1, int? perPage = 20}) =>
       (super.noSuchMethod(
-            Invocation.method(#getPhotos, [], {#page: page, #perPage: perPage}),
-            returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
-            returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
-              <_i2.Photo>[],
-            ),
-          )
-          as _i5.Future<List<_i2.Photo>>);
+        Invocation.method(#getPhotos, [], {#page: page, #perPage: perPage}),
+        returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
+        returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
+          <_i2.Photo>[],
+        ),
+      ) as _i5.Future<List<_i2.Photo>>);
 
   @override
   _i5.Future<List<_i2.Photo>> searchPhotos(
@@ -65,30 +64,27 @@ class MockPhotoApiDataSource extends _i1.Mock
     int? perPage = 20,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #searchPhotos,
-              [query],
-              {#page: page, #perPage: perPage},
-            ),
-            returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
-            returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
-              <_i2.Photo>[],
-            ),
-          )
-          as _i5.Future<List<_i2.Photo>>);
+        Invocation.method(
+          #searchPhotos,
+          [query],
+          {#page: page, #perPage: perPage},
+        ),
+        returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
+        returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
+          <_i2.Photo>[],
+        ),
+      ) as _i5.Future<List<_i2.Photo>>);
 
   @override
-  _i5.Future<_i2.Photo> getPhotoDetails(String? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#getPhotoDetails, [id]),
-            returnValue: _i5.Future<_i2.Photo>.value(
-              _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
-            ),
-            returnValueForMissingStub: _i5.Future<_i2.Photo>.value(
-              _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
-            ),
-          )
-          as _i5.Future<_i2.Photo>);
+  _i5.Future<_i2.Photo> getPhotoDetails(String? id) => (super.noSuchMethod(
+        Invocation.method(#getPhotoDetails, [id]),
+        returnValue: _i5.Future<_i2.Photo>.value(
+          _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
+        ),
+        returnValueForMissingStub: _i5.Future<_i2.Photo>.value(
+          _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
+        ),
+      ) as _i5.Future<_i2.Photo>);
 }
 
 /// A class which mocks [UnsplashApiDataSource].
@@ -97,19 +93,17 @@ class MockPhotoApiDataSource extends _i1.Mock
 class MockUnsplashApiDataSource extends _i1.Mock
     implements _i6.UnsplashApiDataSource {
   @override
-  _i3.DatabaseHelper get favoriteDatabaseHelper =>
-      (super.noSuchMethod(
-            Invocation.getter(#favoriteDatabaseHelper),
-            returnValue: _FakeDatabaseHelper_1(
-              this,
-              Invocation.getter(#favoriteDatabaseHelper),
-            ),
-            returnValueForMissingStub: _FakeDatabaseHelper_1(
-              this,
-              Invocation.getter(#favoriteDatabaseHelper),
-            ),
-          )
-          as _i3.DatabaseHelper);
+  _i3.DatabaseHelper get favoriteDatabaseHelper => (super.noSuchMethod(
+        Invocation.getter(#favoriteDatabaseHelper),
+        returnValue: _FakeDatabaseHelper_1(
+          this,
+          Invocation.getter(#favoriteDatabaseHelper),
+        ),
+        returnValueForMissingStub: _FakeDatabaseHelper_1(
+          this,
+          Invocation.getter(#favoriteDatabaseHelper),
+        ),
+      ) as _i3.DatabaseHelper);
 
   @override
   set favoriteDatabaseHelper(_i3.DatabaseHelper? _favoriteDatabaseHelper) =>
@@ -121,13 +115,12 @@ class MockUnsplashApiDataSource extends _i1.Mock
   @override
   _i5.Future<List<_i2.Photo>> getPhotos({int? page = 1, int? perPage = 20}) =>
       (super.noSuchMethod(
-            Invocation.method(#getPhotos, [], {#page: page, #perPage: perPage}),
-            returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
-            returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
-              <_i2.Photo>[],
-            ),
-          )
-          as _i5.Future<List<_i2.Photo>>);
+        Invocation.method(#getPhotos, [], {#page: page, #perPage: perPage}),
+        returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
+        returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
+          <_i2.Photo>[],
+        ),
+      ) as _i5.Future<List<_i2.Photo>>);
 
   @override
   _i5.Future<List<_i2.Photo>> searchPhotos(
@@ -136,30 +129,27 @@ class MockUnsplashApiDataSource extends _i1.Mock
     int? perPage = 20,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #searchPhotos,
-              [query],
-              {#page: page, #perPage: perPage},
-            ),
-            returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
-            returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
-              <_i2.Photo>[],
-            ),
-          )
-          as _i5.Future<List<_i2.Photo>>);
+        Invocation.method(
+          #searchPhotos,
+          [query],
+          {#page: page, #perPage: perPage},
+        ),
+        returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
+        returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
+          <_i2.Photo>[],
+        ),
+      ) as _i5.Future<List<_i2.Photo>>);
 
   @override
-  _i5.Future<_i2.Photo> getPhotoDetails(String? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#getPhotoDetails, [id]),
-            returnValue: _i5.Future<_i2.Photo>.value(
-              _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
-            ),
-            returnValueForMissingStub: _i5.Future<_i2.Photo>.value(
-              _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
-            ),
-          )
-          as _i5.Future<_i2.Photo>);
+  _i5.Future<_i2.Photo> getPhotoDetails(String? id) => (super.noSuchMethod(
+        Invocation.method(#getPhotoDetails, [id]),
+        returnValue: _i5.Future<_i2.Photo>.value(
+          _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
+        ),
+        returnValueForMissingStub: _i5.Future<_i2.Photo>.value(
+          _FakePhoto_0(this, Invocation.method(#getPhotoDetails, [id])),
+        ),
+      ) as _i5.Future<_i2.Photo>);
 }
 
 /// A class which mocks [PhotoLocalDataSource].
@@ -170,13 +160,12 @@ class MockPhotoLocalDataSource extends _i1.Mock
   @override
   _i5.Future<List<_i2.Photo>> getPhotos(String? sourceKey) =>
       (super.noSuchMethod(
-            Invocation.method(#getPhotos, [sourceKey]),
-            returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
-            returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
-              <_i2.Photo>[],
-            ),
-          )
-          as _i5.Future<List<_i2.Photo>>);
+        Invocation.method(#getPhotos, [sourceKey]),
+        returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
+        returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
+          <_i2.Photo>[],
+        ),
+      ) as _i5.Future<List<_i2.Photo>>);
 
   @override
   _i5.Future<void> cachePhotos(
@@ -185,11 +174,10 @@ class MockPhotoLocalDataSource extends _i1.Mock
     required int? page,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#cachePhotos, [sourceKey, photos], {#page: page}),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+        Invocation.method(#cachePhotos, [sourceKey, photos], {#page: page}),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
   _i5.Future<List<_i2.Photo>> getSearchResults(
@@ -197,13 +185,12 @@ class MockPhotoLocalDataSource extends _i1.Mock
     String? query,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#getSearchResults, [sourceKey, query]),
-            returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
-            returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
-              <_i2.Photo>[],
-            ),
-          )
-          as _i5.Future<List<_i2.Photo>>);
+        Invocation.method(#getSearchResults, [sourceKey, query]),
+        returnValue: _i5.Future<List<_i2.Photo>>.value(<_i2.Photo>[]),
+        returnValueForMissingStub: _i5.Future<List<_i2.Photo>>.value(
+          <_i2.Photo>[],
+        ),
+      ) as _i5.Future<List<_i2.Photo>>);
 
   @override
   _i5.Future<void> cacheSearchResults(
@@ -213,42 +200,37 @@ class MockPhotoLocalDataSource extends _i1.Mock
     required int? page,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #cacheSearchResults,
-              [sourceKey, query, photos],
-              {#page: page},
-            ),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+        Invocation.method(
+          #cacheSearchResults,
+          [sourceKey, query, photos],
+          {#page: page},
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
   _i5.Future<_i2.Photo?> getPhotoDetails(String? sourceKey, String? id) =>
       (super.noSuchMethod(
-            Invocation.method(#getPhotoDetails, [sourceKey, id]),
-            returnValue: _i5.Future<_i2.Photo?>.value(),
-            returnValueForMissingStub: _i5.Future<_i2.Photo?>.value(),
-          )
-          as _i5.Future<_i2.Photo?>);
+        Invocation.method(#getPhotoDetails, [sourceKey, id]),
+        returnValue: _i5.Future<_i2.Photo?>.value(),
+        returnValueForMissingStub: _i5.Future<_i2.Photo?>.value(),
+      ) as _i5.Future<_i2.Photo?>);
 
   @override
   _i5.Future<void> cachePhotoDetails(String? sourceKey, _i2.Photo? photo) =>
       (super.noSuchMethod(
-            Invocation.method(#cachePhotoDetails, [sourceKey, photo]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+        Invocation.method(#cachePhotoDetails, [sourceKey, photo]),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> clearCache() =>
-      (super.noSuchMethod(
-            Invocation.method(#clearCache, []),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+  _i5.Future<void> clearCache() => (super.noSuchMethod(
+        Invocation.method(#clearCache, []),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [ConnectivityService].
@@ -257,37 +239,31 @@ class MockPhotoLocalDataSource extends _i1.Mock
 class MockConnectivityService extends _i1.Mock
     implements _i8.ConnectivityService {
   @override
-  bool get isConnected =>
-      (super.noSuchMethod(
-            Invocation.getter(#isConnected),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
+  bool get isConnected => (super.noSuchMethod(
+        Invocation.getter(#isConnected),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
   set isConnected(bool? _isConnected) => super.noSuchMethod(
-    Invocation.setter(#isConnected, _isConnected),
-    returnValueForMissingStub: null,
-  );
+        Invocation.setter(#isConnected, _isConnected),
+        returnValueForMissingStub: null,
+      );
 
   @override
-  _i5.Stream<bool> get connectivityStream =>
-      (super.noSuchMethod(
-            Invocation.getter(#connectivityStream),
-            returnValue: _i5.Stream<bool>.empty(),
-            returnValueForMissingStub: _i5.Stream<bool>.empty(),
-          )
-          as _i5.Stream<bool>);
+  _i5.Stream<bool> get connectivityStream => (super.noSuchMethod(
+        Invocation.getter(#connectivityStream),
+        returnValue: _i5.Stream<bool>.empty(),
+        returnValueForMissingStub: _i5.Stream<bool>.empty(),
+      ) as _i5.Stream<bool>);
 
   @override
-  _i5.Future<void> init() =>
-      (super.noSuchMethod(
-            Invocation.method(#init, []),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+  _i5.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(#init, []),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
   void checkConnection(List<_i9.ConnectivityResult>? connectivityResult) =>
@@ -298,16 +274,14 @@ class MockConnectivityService extends _i1.Mock
 
   @override
   void dispose() => super.noSuchMethod(
-    Invocation.method(#dispose, []),
-    returnValueForMissingStub: null,
-  );
+        Invocation.method(#dispose, []),
+        returnValueForMissingStub: null,
+      );
 
   @override
-  _i5.Future<bool> checkCurrentConnectivity() =>
-      (super.noSuchMethod(
-            Invocation.method(#checkCurrentConnectivity, []),
-            returnValue: _i5.Future<bool>.value(false),
-            returnValueForMissingStub: _i5.Future<bool>.value(false),
-          )
-          as _i5.Future<bool>);
+  _i5.Future<bool> checkCurrentConnectivity() => (super.noSuchMethod(
+        Invocation.method(#checkCurrentConnectivity, []),
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }
