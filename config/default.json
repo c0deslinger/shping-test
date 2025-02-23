@@ -1,4 +1,4 @@
 {
-  "api_url": "https://api.unsplash.com",
-  "api_key": "AHpPdXrmpHdXje5RfJEq9HzDORBW7_ne9S-GHfvTRjo"
+  "unsplash_api_url": "https://api.unsplash.com",
+  "unsplash_api_key": "AHpPdXrmpHdXje5RfJEq9HzDORBW7_ne9S-GHfvTRjo"
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>API_KEY</key>
+	<key>unsplash_api_key</key>
 	<string>AIzaSyBhrR4Ta7AvjAShuZklMwBULR2_2sNUfCE</string>
 	<key>GCM_SENDER_ID</key>
 	<string>94893101359</string>

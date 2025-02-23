@@ -11,6 +11,7 @@ This is a photo album app that fetches data from Unsplash.
   [How to Build Flavor in Flutter Android with Different Firebase Config](https://ahmedyusuf.medium.com/how-to-build-flavor-in-flutter-android-with-different-firebase-config-96b259e5572e)
   and 
   [Setup Flavors in iOS Flutter with Different Firebase Config](https://ahmedyusuf.medium.com/setup-flavors-in-ios-flutter-with-different-firebase-config-43c4c4823e6b).
+- Extension on text to auto capitalize on first letter
 - Unit test: Not yet implemented.
 
 ## How to Run
@@ -68,4 +69,4 @@ B. Build using Command Line
   ```flutter build apk --flavor dev -t lib/main_dev.dart```
 
 ## Config file
-The configuration file is located in the project/config folder. There, you can find variables such as api_url and api_key, which are separated for each environment using the flavor mechanism. This will be useful if there are differences in the API URL and API key for each environment in the future, without needing to change much code.
+The configuration file is located in the project/config folder. There, you can find variables such as unsplash_api_url and unsplash_api_key, which are separated for each environment using the flavor mechanism. This will be useful if there are differences in the API URL and API key for each environment in the future, without needing to change much code.
