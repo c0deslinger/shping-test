@@ -2,136 +2,235 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/theme_provider.dart';
-import '../../../core/theme/text_styles.dart';
 import '../providers/settings_provider.dart';
 
-/// A screen widget that displays various app settings including language, theme and image source options
+/// A settings screen that displays language, theme and image source options
 class SettingsScreen extends StatelessWidget {
-  static const route = '/settings';
-  const SettingsScreen({Key? key}) : super(key: key);
+  static const String route = '/settings';
 
-  /// Changes the app's language to the specified language code
-  void _changeLanguage(BuildContext context, String languageCode) async {
-    await context.setLocale(Locale(languageCode));
+  const SettingsScreen({super.key});
+
+  /// Updates app language based on selected language code
+  Future<void> _changeLanguage(BuildContext context, String langCode) async {
+    await context.setLocale(Locale(langCode));
   }
 
-  /// Builds a section title widget with consistent styling
-  Widget _buildSectionTitle(String title) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title.tr(), style: AppTextStyle.titleLarge),
-        const SizedBox(height: 8),
-      ],
+  /// Builds a section title with consistent styling
+  Widget _buildSectionTitle(String title, ColorScheme colors) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, bottom: 8, top: 24),
+      child: Text(
+        title.tr(),
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.1,
+        ),
+      ),
     );
   }
 
-  /// Builds the language selection section with supported languages
-  Widget _buildLanguageSection(BuildContext context) {
+  /// Builds language selection section
+  Widget _buildLanguageSection(BuildContext context, ColorScheme colors) {
     final languages = [
-      {'code': 'en', 'name': 'languages.en'},
-      {'code': 'id', 'name': 'languages.id'},
-      {'code': 'ja', 'name': 'languages.ja'},
-      {'code': 'zh', 'name': 'languages.zh'},
+      {
+        'code': 'en',
+        'name': 'languages.en',
+        'icon': Icons.language,
+      },
+      {
+        'code': 'id',
+        'name': 'languages.id',
+        'icon': Icons.language,
+      },
+      {
+        'code': 'ja',
+        'name': 'languages.ja',
+        'icon': Icons.language,
+      },
+      {
+        'code': 'zh',
+        'name': 'languages.zh',
+        'icon': Icons.language,
+      },
     ];
 
-    return Card(
+    return Material(
+      color: colors.surface,
       child: Column(
         children: languages
             .map((lang) => ListTile(
-                  title: Text(lang['name']!.tr()),
-                  onTap: () => _changeLanguage(context, lang['code']!),
+                  leading: Icon(
+                    lang['icon'] as IconData,
+                    size: 22,
+                  ),
+                  title: Text(
+                    lang['name'].toString().tr(),
+                    style: TextStyle(
+                      color: colors.onSurface,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  onTap: () =>
+                      _changeLanguage(context, lang['code'].toString()),
                   trailing: context.locale.languageCode == lang['code']
-                      ? const Icon(Icons.check, color: Colors.green)
+                      ? const Icon(
+                          Icons.check_rounded,
+                          size: 20,
+                        )
                       : null,
+                  dense: true,
+                  horizontalTitleGap: 12,
                 ))
             .toList(),
       ),
     );
   }
 
-  /// Builds the theme selection section with light, dark and system theme options
-  Widget _buildThemeSection(ThemeProvider themeProvider) {
-    final themeOptions = [
-      {'mode': ThemeMode.light, 'title': 'settings.theme_mode.light'},
-      {'mode': ThemeMode.dark, 'title': 'settings.theme_mode.dark'},
-      {'mode': ThemeMode.system, 'title': 'settings.theme_mode.system'},
+  /// Builds theme selection section
+  Widget _buildThemeSection(ThemeProvider provider, ColorScheme colors) {
+    final themes = [
+      {
+        'mode': ThemeMode.light,
+        'title': 'settings.theme_mode.light',
+        'icon': Icons.light_mode_rounded
+      },
+      {
+        'mode': ThemeMode.dark,
+        'title': 'settings.theme_mode.dark',
+        'icon': Icons.dark_mode_rounded
+      },
+      {
+        'mode': ThemeMode.system,
+        'title': 'settings.theme_mode.system',
+        'icon': Icons.brightness_auto_rounded
+      },
     ];
 
-    return Card(
+    return Material(
+      color: colors.surface,
       child: Column(
-        children: themeOptions
-            .map((option) => RadioListTile<ThemeMode>(
-                  title: Text(option['title'].toString().tr(),
-                      style: AppTextStyle.bodyMedium),
-                  value: option['mode'] as ThemeMode,
-                  groupValue: themeProvider.themeMode,
-                  onChanged: (value) =>
-                      value != null ? themeProvider.setThemeMode(value) : null,
+        children: themes
+            .map((theme) => ListTile(
+                  leading: Icon(
+                    theme['icon'] as IconData,
+                    size: 22,
+                  ),
+                  title: Text(
+                    theme['title'].toString().tr(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  trailing: Radio<ThemeMode>(
+                    value: theme['mode'] as ThemeMode,
+                    groupValue: provider.themeMode,
+                    onChanged: (value) => provider.setThemeMode(value!),
+                  ),
+                  onTap: () =>
+                      provider.setThemeMode(theme['mode'] as ThemeMode),
+                  dense: true,
+                  horizontalTitleGap: 12,
                 ))
             .toList(),
       ),
     );
   }
 
-  /// Builds the image source selection section with Unsplash and Pixabay options
-  Widget _buildImageSourceSection(SettingsProvider settingsProvider) {
-    final sourceOptions = [
+  /// Builds image source selection section
+  Widget _buildImageSourceSection(
+    SettingsProvider provider,
+    ColorScheme colors,
+  ) {
+    final sources = [
       {
         'source': ImageSource.unsplash,
         'title': 'settings.image_source_options.unsplash',
-        'desc': 'settings.image_source_options.unsplash_desc'
+        'desc': 'settings.image_source_options.unsplash_desc',
+        'icon': Icons.image_rounded
       },
       {
         'source': ImageSource.pixabay,
         'title': 'settings.image_source_options.pixabay',
-        'desc': 'settings.image_source_options.pixabay_desc'
+        'desc': 'settings.image_source_options.pixabay_desc',
+        'icon': Icons.photo_library_rounded
       },
     ];
 
-    return Card(
+    return Material(
+      color: colors.surface,
       child: Column(
-        children: sourceOptions
-            .map((option) => RadioListTile<ImageSource>(
-                  title: Text(option['title'].toString().tr(),
-                      style: AppTextStyle.bodyMedium),
-                  subtitle: Text(option['desc'].toString().tr(),
-                      style: AppTextStyle.bodySmall),
-                  value: option['source'] as ImageSource,
-                  groupValue: settingsProvider.imageSource,
-                  onChanged: (value) => value != null
-                      ? settingsProvider.setImageSource(value)
-                      : null,
+        children: sources
+            .map((source) => ListTile(
+                  leading: Icon(
+                    source['icon'] as IconData,
+                    size: 22,
+                  ),
+                  title: Text(
+                    source['title'].toString().tr(),
+                    style: TextStyle(
+                      color: colors.onSurface,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  subtitle: Text(
+                    source['desc'].toString().tr(),
+                    style: TextStyle(
+                      color: colors.onSurfaceVariant,
+                      fontSize: 12,
+                    ),
+                  ),
+                  trailing: Radio<ImageSource>(
+                    value: source['source'] as ImageSource,
+                    groupValue: provider.imageSource,
+                    onChanged: (value) => provider.setImageSource(value!),
+                  ),
+                  onTap: () =>
+                      provider.setImageSource(source['source'] as ImageSource),
+                  dense: true,
+                  horizontalTitleGap: 12,
                 ))
             .toList(),
       ),
     );
   }
 
-  /// Builds the main settings screen layout with all settings sections
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final themeProvider = Provider.of<ThemeProvider>(context);
     final settingsProvider = Provider.of<SettingsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('settings.title'.tr(), style: AppTextStyle.titleLarge),
+        title: Text(
+          'settings.title'.tr(),
+        ),
+        elevation: 0,
+        backgroundColor: colors.surface,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
-          _buildSectionTitle('settings.language'),
-          _buildLanguageSection(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle('settings.theme'),
-          _buildThemeSection(themeProvider),
-          const SizedBox(height: 24),
-          _buildSectionTitle('settings.image_source'),
-          _buildImageSourceSection(settingsProvider),
-          const SizedBox(height: 24),
-          Center(
-            child: Text('version 1.0.0', style: AppTextStyle.bodySmall),
+          _buildSectionTitle('settings.language', colors),
+          _buildLanguageSection(context, colors),
+          _buildSectionTitle('settings.theme', colors),
+          _buildThemeSection(themeProvider, colors),
+          _buildSectionTitle('settings.image_source', colors),
+          _buildImageSourceSection(settingsProvider, colors),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: Center(
+              child: Text(
+                'v1.0.0',
+                style: TextStyle(
+                  color: colors.onSurfaceVariant,
+                  fontSize: 12,
+                ),
+              ),
+            ),
           ),
         ],
       ),

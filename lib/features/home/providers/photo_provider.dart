@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:shping_test/core/constants/app_constant.dart';
 import 'package:shping_test/features/settings/providers/settings_provider.dart';
 import '../data/entities/photo.dart';
 import '../repository/photo_repository.dart';
@@ -15,6 +14,7 @@ class PhotoProvider with ChangeNotifier {
 
   List<Photo> _photos = [];
   List<Photo> _searchResults = [];
+  Photo? detailedPhoto;
 
   LoadingStatus _status = LoadingStatus.initial;
   bool _isLoadMore = false;
@@ -99,10 +99,7 @@ class PhotoProvider with ChangeNotifier {
     if (!_hasMore) return;
 
     try {
-      final newPhotos = await _currentRepository.getPhotos(
-        page: _currentPage,
-        perPage: AppConstants.maxImagePerPage,
-      );
+      final newPhotos = await _currentRepository.getPhotos(page: _currentPage);
 
       if (newPhotos.isEmpty) {
         _hasMore = false;
@@ -172,12 +169,17 @@ class PhotoProvider with ChangeNotifier {
   }
 
   /// Fetches details of a single photo by [id].
-  Future<Photo> getPhotoDetails(String id) async {
+  Future<void> getPhotoDetails(String id) async {
+    _status = LoadingStatus.loading;
+    notifyListeners();
     try {
-      return await _currentRepository.getPhotoDetails(id);
+      detailedPhoto = await _currentRepository.getPhotoDetails(id);
     } catch (e) {
       _errorMessage = e.toString();
-      throw Exception(_errorMessage);
+      _status = LoadingStatus.error;
+    } finally {
+      _status = LoadingStatus.loaded;
+      notifyListeners();
     }
   }
 

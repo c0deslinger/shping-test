@@ -8,7 +8,8 @@
             "program" : "lib/main_dev.dart",
             "args": [
                 "--flavor",
-                "Dev"
+                "Dev",
+                "--no-enable-impeller"
             ]
         },
         {
@@ -19,7 +20,8 @@
             "program" : "lib/main_prod.dart",
             "args": [
                 "--flavor",
-                "Prod"
+                "Prod",
+                "--no-enable-impeller"
             ]
         }
     ]

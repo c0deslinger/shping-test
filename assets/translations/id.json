@@ -30,5 +30,23 @@
         "no_results": "Tidak ada hasil untuk \"{0}\"",
         "offline_mode": "Mode Offline - Menampilkan data tersimpan",
         "search_hint": "Cari foto..."
-    }
+    },
+    "photo": {
+        "not_found": "Foto tidak ditemukan",
+        "by": "Oleh",
+        "likes": "Suka",
+        "date": "Tanggal",
+        "description": "Deskripsi",
+        "tags": "Tag",
+        "select_image": "Pilih Gambar",
+        "views": "Dilihat",
+        "downloads": "Diunduh",
+        "featured_in": "Ditampilkan di",
+        "download_image": "Unduh Gambar",
+        "download_success": "Gambar tersimpan di galeri",
+        "download_error": "Gagal menyimpan gambar",
+        "share_error": "Gagal membagikan gambar",
+        "permission_denied": "Izin penyimpanan diperlukan untuk menyimpan gambar"
+    },
+    "favorite" : "Favorite Saya"
 } 

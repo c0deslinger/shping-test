@@ -12,6 +12,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
   final ConnectivityService _connectivityService;
   late String _sourceKey;
 
+  /// Constructor initializes data sources and determines image source key
   PhotoRepositoryImpl({
     required PhotoApiDataSource apiDataSource,
     required PhotoLocalDataSource localDataSource,
@@ -23,6 +24,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
         _apiDataSource is UnsplashApiDataSource ? 'unsplash' : 'pixabay';
   }
 
+  /// Retrieves photos with fallback to local cache and supports pagination
   @override
   Future<List<Photo>> getPhotos({int page = 1, int perPage = 20}) async {
     return _getFromApiWithFallback(
@@ -33,6 +35,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
     );
   }
 
+  /// Searches photos with fallback to local cache and supports pagination
   @override
   Future<List<Photo>> searchPhotos(
     String query, {
@@ -52,6 +55,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
     );
   }
 
+  /// Retrieves photo details with fallback to cached data
   @override
   Future<Photo> getPhotoDetails(String id) async {
     try {
@@ -73,7 +77,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
     }
   }
 
-  /// Helper method untuk API-call + fallback ke cache
+  /// Helper method to handle API calls with local cache fallback
   Future<List<Photo>> _getFromApiWithFallback({
     required Future<List<Photo>> Function() apiCall,
     required Future<List<Photo>> Function() localCall,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shping_test/core/widgets/glass_container.dart';
 import 'package:shping_test/core/widgets/shimmer_loading.dart';
 
 class ShimmerPhotoCard extends StatelessWidget {
@@ -6,35 +7,50 @@ class ShimmerPhotoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Image placeholder
-          Expanded(
-            child: ShimmerLoading.rectangular(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: const Stack(
+          children: [
+            // Background shimmer
+            ShimmerLoading.rectangular(
               height: double.infinity,
             ),
-          ),
-
-          // Info placeholders
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ShimmerLoading.rectangular(height: 14),
-                SizedBox(height: 8),
-                ShimmerLoading.rectangular(height: 10),
-              ],
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: GlassContainer(
+                blur: 10,
+                opacity: 0.2,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ShimmerLoading.rectangular(height: 14),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        ShimmerLoading.circular(width: 14, height: 14),
+                        SizedBox(width: 4),
+                        Expanded(
+                          child: ShimmerLoading.rectangular(height: 12),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

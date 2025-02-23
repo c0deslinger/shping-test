@@ -13,22 +13,40 @@
         "image_source": "画像ソース",
         "image_source_options": {
             "unsplash": "Unsplash",
-            "unsplash_desc": "高品質なフリー画像",
+            "unsplash_desc": "高品質な無料画像",
             "pixabay": "Pixabay",
-            "pixabay_desc": "コミュニティ主導のプラットフォーム"
+            "pixabay_desc": "コミュニティ駆動型プラットフォーム"
         }
     },
     "languages": {
-        "en": "English",
-        "id": "Indonesian",
-        "ja": "Japanese",
-        "zh": "Chinese"
+        "en": "英語",
+        "id": "インドネシア語",
+        "ja": "日本語",
+        "zh": "中国語"
     },
     "home": {
         "title": "フォトギャラリー",
         "no_photos": "写真がありません",
-        "no_results": "\"{0}\"の検索結果がありません",
+        "no_results": "\"{0}\"の検索結果が見つかりません",
         "offline_mode": "オフラインモード - キャッシュデータを表示中",
         "search_hint": "写真を検索..."
-    }
-} 
+    },
+    "photo": {
+        "not_found": "写真が見つかりません",
+        "by": "撮影者",
+        "likes": "いいね",
+        "date": "日付",
+        "description": "説明",
+        "tags": "タグ",
+        "select_image": "画像を選択",
+        "views": "閲覧数",
+        "downloads": "ダウンロード数",
+        "featured_in": "フィーチャー",
+        "download_image": "画像をダウンロード",
+        "download_success": "画像をギャラリーに保存しました",
+        "download_error": "画像の保存に失敗しました",
+        "share_error": "画像の共有に失敗しました",
+        "permission_denied": "画像を保存するにはストレージの権限が必要です"
+    },
+    "favorite": "お気に入り"
+}

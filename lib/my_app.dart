@@ -5,10 +5,12 @@ import 'package:shping_test/core/providers/network_provider.dart';
 import 'package:shping_test/core/providers/theme_provider.dart';
 import 'package:shping_test/core/routes/app_router.dart';
 import 'package:shping_test/core/services/connectivity_service.dart';
+import 'package:shping_test/core/services/db_helper.dart';
 import 'package:shping_test/core/theme/app_themes.dart';
 import 'package:shping_test/features/home/data/datasource/local/hive_local_datasource.dart';
 import 'package:shping_test/features/home/data/datasource/remote/pixabay_api_datasource.dart';
 import 'package:shping_test/features/home/data/datasource/remote/unsplash_api_datasource.dart';
+import 'package:shping_test/features/favorite/provider/favorite_provider.dart';
 import 'package:shping_test/features/home/providers/photo_provider.dart';
 import 'package:shping_test/features/home/repository/photo_repository_impl.dart';
 import 'package:shping_test/features/settings/providers/settings_provider.dart';
@@ -47,6 +49,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NetworkProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(
+            DatabaseHelper.instance,
+          ),
+        ),
 
         // Inject PhotoProvider yang memegang 2 repository (Unsplash, Pixabay)
         ChangeNotifierProvider(

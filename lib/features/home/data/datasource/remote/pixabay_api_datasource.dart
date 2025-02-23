@@ -1,6 +1,7 @@
 // lib/app/modules/home/data/datasource/remote/pixabay_api_datasource.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shping_test/core/services/db_helper.dart';
 import 'package:shping_test/features/home/data/datasource/remote/photo_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/data/models/pixabay/pixabay_list_photo_response.dart';
@@ -11,6 +12,7 @@ import 'package:shping_test/core/utils/logger.dart';
 class PixabayApiDataSource implements PhotoApiDataSource {
   final String _baseUrl = ConfigReader.getPixabayApiUrl();
   final String _apiKey = ConfigReader.getPixabayApiKey();
+  DatabaseHelper favoriteDatabaseHelper = DatabaseHelper.instance;
 
   @override
   Future<List<Photo>> getPhotos({int page = 1, int perPage = 20}) async {
@@ -34,8 +36,14 @@ class PixabayApiDataSource implements PhotoApiDataSource {
       if (response.statusCode == 200) {
         final pixabayResponse =
             PixabayListPhotoResponse.fromJson(json.decode(response.body));
-        final photos =
-            pixabayResponse.hits?.map((hit) => hit.toPhoto()).toList() ?? [];
+        // Null-safe conversion and mapping
+        final List<Photo> photos =
+            (pixabayResponse.hits ?? []).map((hit) => hit.toPhoto()).toList();
+
+        // Check favorite status for each photo
+        for (var photo in photos) {
+          photo.isFavorite = await favoriteDatabaseHelper.isFavorite(photo.id);
+        }
 
         LoggerUtil.i(
             '[$methodName] Successfully retrieved ${photos.length} photos');
@@ -110,7 +118,12 @@ class PixabayApiDataSource implements PhotoApiDataSource {
         if (pixabayResponse.hits?.isEmpty ?? true) {
           throw Exception('Photo not found');
         }
-        return pixabayResponse.hits!.first.toPhoto();
+
+        // Convert to Photo and check favorite status
+        final photo = pixabayResponse.hits!.first.toPhoto();
+        photo.isFavorite = await favoriteDatabaseHelper.isFavorite(id);
+
+        return photo;
       } else {
         throw Exception('Failed to load photo details: ${response.statusCode}');
       }

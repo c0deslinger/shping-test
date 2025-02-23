@@ -7,11 +7,13 @@ class PhotoGrid extends StatelessWidget {
   final List<Photo> photos;
   final ScrollController scrollController;
   final bool isLoading;
+  final String source;
 
   const PhotoGrid({
     Key? key,
     required this.photos,
     required this.scrollController,
+    required this.source,
     this.isLoading = false,
   }) : super(key: key);
 
@@ -33,7 +35,7 @@ class PhotoGrid extends StatelessWidget {
         }
 
         final photo = photos[index];
-        return PhotoCard(photo: photo);
+        return PhotoCard(photo: photo, source: source);
       },
     );
   }

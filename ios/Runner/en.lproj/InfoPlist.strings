@@ -7,6 +7,6 @@
 */
 "CFBundleName" = "Photo Album";
 "CFBundleDisplayName" = "Photo Album";
-"NSCameraUsageDescription" = "Allows access to the camera to take and save a photo with the file name set in the app";
-"NSPhotoLibraryAddUsageDescription" = "Allow aceess to Photos to save the photos with preset file name";
-"NSPhotoLibraryUsageDescription" = "Allow aceess to Photos to save the photos with preset file name";
+"NSCameraUsageDescription" = "Allows access to the camera to save a photo";
+"NSPhotoLibraryAddUsageDescription" = "Allow aceess to Photos to save the photos";
+"NSPhotoLibraryUsageDescription" = "Allow aceess to Photos to save the photos";

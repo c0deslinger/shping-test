@@ -5,7 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 // Import kelas2 yang dibutuhkan
 import 'package:shping_test/my_app.dart';
 import 'package:shping_test/core/utils/config_reader.dart';
-import 'package:shping_test/core/utils/environment.dart';
 
 Future<void> mainCommon(String env) async {
   WidgetsFlutterBinding.ensureInitialized();

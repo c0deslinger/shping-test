@@ -37,8 +37,6 @@ class ConnectivityService {
       isConnected = false;
     }
 
-    debugPrint('Connectivity changed: $isConnected');
-
     // Only emit if there's a change in connection status
     if (wasConnected != isConnected) {
       _connectivityController.add(isConnected);

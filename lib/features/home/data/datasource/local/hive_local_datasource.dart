@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shping_test/core/utils/logger.dart';
 import 'package:shping_test/features/home/data/datasource/local/photo_local_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 
@@ -13,22 +13,26 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
 
   Future<void> _initBox() async {
     _photosBox = await Hive.openBox<String>('photos_cache');
+    LoggerUtil.i('Initialized photos cache box');
   }
 
   @override
   Future<List<Photo>> getPhotos(String sourceKey) async {
-    final key = '${sourceKey}_main_photos'; // contoh penamaan
+    final key = '${sourceKey}_main_photos';
     try {
       final cachedData = _photosBox.get(key);
       if (cachedData != null) {
         final List<dynamic> decodedData = jsonDecode(cachedData);
-        return decodedData
+        final photos = decodedData
             .map((item) => Photo.fromJson(item as Map<String, dynamic>))
             .toList();
+        LoggerUtil.d('Retrieved ${photos.length} cached photos for $sourceKey');
+        return photos;
       }
+      LoggerUtil.w('No cached photos found for $sourceKey');
       return [];
-    } catch (e) {
-      print('Error getting cached photos: $e');
+    } catch (e, stackTrace) {
+      LoggerUtil.e('Error getting cached photos for $sourceKey', e, stackTrace);
       return [];
     }
   }
@@ -42,13 +46,12 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
     final key = '${sourceKey}_main_photos';
     try {
       if (page == 1) {
-        // Replace cache untuk page pertama
         await _photosBox.put(
           key,
           jsonEncode(photos.map((photo) => photo.toJson()).toList()),
         );
+        LoggerUtil.i('Cached ${photos.length} new photos for $sourceKey');
       } else {
-        // Append cache untuk pagination
         final existingDataStr = _photosBox.get(key);
         if (existingDataStr != null) {
           final existingData = jsonDecode(existingDataStr) as List;
@@ -61,15 +64,19 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
             key,
             jsonEncode(mergedList.map((photo) => photo.toJson()).toList()),
           );
+          LoggerUtil.i(
+              'Appended ${photos.length} photos to cache for $sourceKey. Total: ${mergedList.length}');
         } else {
           await _photosBox.put(
             key,
             jsonEncode(photos.map((photo) => photo.toJson()).toList()),
           );
+          LoggerUtil.i(
+              'Created new cache with ${photos.length} photos for $sourceKey');
         }
       }
-    } catch (e) {
-      print('Error caching photos: $e');
+    } catch (e, stackTrace) {
+      LoggerUtil.e('Error caching photos for $sourceKey', e, stackTrace);
     }
   }
 
@@ -80,13 +87,18 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
       final cachedData = _photosBox.get(key);
       if (cachedData != null) {
         final List<dynamic> decodedData = jsonDecode(cachedData);
-        return decodedData
+        final photos = decodedData
             .map((item) => Photo.fromJson(item as Map<String, dynamic>))
             .toList();
+        LoggerUtil.d(
+            'Retrieved ${photos.length} cached search results for query: $query');
+        return photos;
       }
+      LoggerUtil.w('No cached search results found for query: $query');
       return [];
-    } catch (e) {
-      print('Error getting cached search results: $e');
+    } catch (e, stackTrace) {
+      LoggerUtil.e('Error getting cached search results for query: $query', e,
+          stackTrace);
       return [];
     }
   }
@@ -101,13 +113,13 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
     final key = '${sourceKey}_search_$query';
     try {
       if (page == 1) {
-        // Replace cache untuk page pertama
         await _photosBox.put(
           key,
           jsonEncode(photos.map((photo) => photo.toJson()).toList()),
         );
+        LoggerUtil.i(
+            'Cached ${photos.length} new search results for query: $query');
       } else {
-        // Append cache untuk pagination
         final existingDataStr = _photosBox.get(key);
         if (existingDataStr != null) {
           final existingData = jsonDecode(existingDataStr) as List;
@@ -120,15 +132,20 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
             key,
             jsonEncode(mergedList.map((photo) => photo.toJson()).toList()),
           );
+          LoggerUtil.i(
+              'Appended ${photos.length} search results to cache for query: $query. Total: ${mergedList.length}');
         } else {
           await _photosBox.put(
             key,
             jsonEncode(photos.map((photo) => photo.toJson()).toList()),
           );
+          LoggerUtil.i(
+              'Created new cache with ${photos.length} search results for query: $query');
         }
       }
-    } catch (e) {
-      print('Error caching search results: $e');
+    } catch (e, stackTrace) {
+      LoggerUtil.e(
+          'Error caching search results for query: $query', e, stackTrace);
     }
   }
 
@@ -139,11 +156,15 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
       final cachedData = _photosBox.get(key);
       if (cachedData != null) {
         final Map<String, dynamic> decodedData = jsonDecode(cachedData);
-        return Photo.fromJson(decodedData);
+        final photo = Photo.fromJson(decodedData);
+        LoggerUtil.d('Retrieved cached photo details for ID: $id');
+        return photo;
       }
+      LoggerUtil.w('No cached photo details found for ID: $id');
       return null;
-    } catch (e) {
-      print('Error getting cached photo details: $e');
+    } catch (e, stackTrace) {
+      LoggerUtil.e(
+          'Error getting cached photo details for ID: $id', e, stackTrace);
       return null;
     }
   }
@@ -153,8 +174,10 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
     final key = '${sourceKey}_photo_${photo.id}';
     try {
       await _photosBox.put(key, jsonEncode(photo.toJson()));
-    } catch (e) {
-      print('Error caching photo details: $e');
+      LoggerUtil.i('Cached photo details for ID: ${photo.id}');
+    } catch (e, stackTrace) {
+      LoggerUtil.e(
+          'Error caching photo details for ID: ${photo.id}', e, stackTrace);
     }
   }
 
@@ -162,8 +185,9 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
   Future<void> clearCache() async {
     try {
       await _photosBox.clear();
-    } catch (e) {
-      print('Error clearing cache: $e');
+      LoggerUtil.i('Cache cleared successfully');
+    } catch (e, stackTrace) {
+      LoggerUtil.e('Error clearing cache', e, stackTrace);
     }
   }
 }
