@@ -12,6 +12,8 @@ This is a photo album app that fetches data from Unsplash.
   and 
   [Setup Flavors in iOS Flutter with Different Firebase Config](https://ahmedyusuf.medium.com/setup-flavors-in-ios-flutter-with-different-firebase-config-43c4c4823e6b).
 - Extension on text to auto capitalize on first letter
+- Add gorouter
+- Add localization
 - Unit test: Not yet implemented.
 
 ## How to Run

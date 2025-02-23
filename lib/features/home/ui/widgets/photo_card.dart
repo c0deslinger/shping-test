@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
@@ -31,33 +32,22 @@ class PhotoCard extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    // Shimmer background
                     const ShimmerLoading.rectangular(
                       height: double.infinity,
                     ),
-                    // Actual image
-                    Image.network(
-                      photo.smallUrl,
+                    CachedNetworkImage(
+                      imageUrl: photo.smallUrl,
                       fit: BoxFit.cover,
-                      frameBuilder:
-                          (context, child, frame, wasSynchronouslyLoaded) {
-                        if (wasSynchronouslyLoaded) return child;
-                        return AnimatedOpacity(
-                          opacity: frame == null ? 0 : 1,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeOut,
-                          child: child,
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Center(
-                          child: Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                            size: 32,
-                          ),
-                        );
-                      },
+                      fadeInDuration: const Duration(milliseconds: 300),
+                      fadeInCurve: Curves.easeOut,
+                      placeholder: (context, url) => Container(),
+                      errorWidget: (context, url, error) => const Center(
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 32,
+                        ),
+                      ),
                     ),
                   ],
                 ),

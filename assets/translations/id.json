@@ -1,0 +1,34 @@
+{
+    "settings": {
+        "title": "Pengaturan",
+        "language": "Bahasa",
+        "language_settings": "Pengaturan Bahasa",
+        "select_language": "Pilih Bahasa",
+        "theme": "Tema",
+        "theme_mode": {
+            "light": "Mode Terang",
+            "dark": "Mode Gelap",
+            "system": "Default Sistem"
+        },
+        "image_source": "Sumber Gambar",
+        "image_source_options": {
+            "unsplash": "Unsplash",
+            "unsplash_desc": "Gambar Berkualitas Tinggi Gratis",
+            "pixabay": "Pixabay",
+            "pixabay_desc": "Platform Berbasis Komunitas"
+        }
+    },
+    "languages": {
+        "en": "English",
+        "id": "Indonesian",
+        "ja": "Japanese",
+        "zh": "Chinese"
+    },
+    "home": {
+        "title": "Galeri Foto",
+        "no_photos": "Tidak ada foto tersedia",
+        "no_results": "Tidak ada hasil untuk \"{0}\"",
+        "offline_mode": "Mode Offline - Menampilkan data tersimpan",
+        "search_hint": "Cari foto..."
+    }
+} 

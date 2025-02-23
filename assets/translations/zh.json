@@ -1,0 +1,34 @@
+{
+    "settings": {
+        "title": "设置",
+        "language": "语言",
+        "language_settings": "语言设置",
+        "select_language": "选择语言",
+        "theme": "主题",
+        "theme_mode": {
+            "light": "浅色模式",
+            "dark": "深色模式",
+            "system": "系统默认"
+        },
+        "image_source": "图片来源",
+        "image_source_options": {
+            "unsplash": "Unsplash",
+            "unsplash_desc": "高质量免费图片",
+            "pixabay": "Pixabay",
+            "pixabay_desc": "社区驱动平台"
+        }
+    },
+    "languages": {
+        "en": "English",
+        "id": "Indonesian",
+        "ja": "Japanese",
+        "zh": "Chinese"
+    },
+    "home": {
+        "title": "图片库",
+        "no_photos": "暂无图片",
+        "no_results": "未找到与\"{0}\"相关的结果",
+        "offline_mode": "离线模式 - 显示缓存数据",
+        "search_hint": "搜索图片..."
+    }
+} 

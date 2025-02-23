@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:shping_test/core/theme/text_styles.dart';
 import 'package:shping_test/core/widgets/error_retry_widget.dart';
 import 'package:shping_test/core/widgets/no_data_available_widget.dart';
@@ -60,9 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Listen to language changes and rebuild
+    context.locale;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo Gallery', style: AppTextStyle.titleLarge),
+        title: Text('home.title'.tr(), style: AppTextStyle.titleLarge),
         elevation: 0,
         actions: [
           IconButton(
@@ -93,14 +97,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
                 if (provider.status == LoadingStatus.error) {
                   return ErrorRetryWidget(
-                      message: ' ${provider.errorMessage}',
+                      message: provider.errorMessage,
                       onRetry: provider.refreshPhotos);
                 }
                 if (provider.photos.isEmpty) {
                   return NoDataAvailableWidget(
                     message: provider.currentQuery.isEmpty
-                        ? 'No photos available'
-                        : 'No results found for "${provider.currentQuery}"',
+                        ? 'home.no_photos'.tr()
+                        : 'home.no_results'.tr(args: [provider.currentQuery]),
                   );
                 }
                 return RefreshIndicator(

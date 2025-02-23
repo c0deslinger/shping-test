@@ -8,10 +8,7 @@ class NetworkProvider with ChangeNotifier {
   bool _isConnected = false;
 
   NetworkProvider() {
-    // Initialize with current connection status
     _isConnected = _connectivityService.isConnected;
-
-    // Subscribe to connectivity changes
     _connectivitySubscription =
         _connectivityService.connectivityStream.listen((connected) {
       _isConnected = connected;

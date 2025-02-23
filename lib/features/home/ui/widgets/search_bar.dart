@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:shping_test/features/home/providers/photo_provider.dart';
 
 class CustomSearchBar extends StatefulWidget {
@@ -35,7 +36,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     _controller.clear();
     final provider = Provider.of<PhotoProvider>(context, listen: false);
     provider.clearSearch();
-    provider.fetchPhotos(refresh: true); // Kembali load list default
+    provider.fetchPhotos(refresh: true);
     setState(() {
       _isSearching = false;
     });
@@ -44,21 +45,15 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    // Listen to language changes and rebuild
+    context.locale;
+
     return Consumer<PhotoProvider>(
       builder: (context, provider, child) {
-        // Sinkronkan text field dengan provider.currentQuery
         final currentQuery = provider.currentQuery;
-        // Jika provider punya query, dan controller belum diset, sinkronkan
         if (currentQuery.isNotEmpty && _controller.text.isEmpty) {
           _controller.text = currentQuery;
           _isSearching = true;
-        }
-        // Jika provider kosong tapi textfield ada isinya, boleh diabaikan
-        // atau jika diinginkan, reset ke kosong. Tergantung kebutuhan:
-        else if (currentQuery.isEmpty && _controller.text.isNotEmpty) {
-          // Bisa diabaikan atau disinkronkan (opsional):
-          // _controller.clear();
-          // _isSearching = false;
         }
 
         return Padding(
@@ -81,10 +76,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     child: TextField(
                       controller: _controller,
                       focusNode: _focusNode,
-                      decoration: const InputDecoration(
-                        hintText: 'Search photos...',
+                      decoration: InputDecoration(
+                        hintText: 'home.search_hint'.tr(),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical: 16),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 16),
                       ),
                       onSubmitted: (_) => _performSearch(context),
                       onTap: () {

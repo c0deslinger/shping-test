@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:shping_test/core/providers/network_provider.dart';
 
 class OfflineBannerWidget extends StatelessWidget {
@@ -13,10 +14,10 @@ class OfflineBannerWidget extends StatelessWidget {
           width: double.infinity,
           color: Colors.orange,
           padding: const EdgeInsets.symmetric(vertical: 4),
-          child: const Text(
-            'Offline Mode - Showing cached data',
+          child: Text(
+            'home.offline_mode'.tr(),
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         );
       } else {

@@ -1,0 +1,34 @@
+{
+    "settings": {
+        "title": "Settings",
+        "language": "Language",
+        "language_settings": "Language Settings",
+        "select_language": "Select Language",
+        "theme": "Theme",
+        "theme_mode": {
+            "light": "Light Mode",
+            "dark": "Dark Mode",
+            "system": "System Default"
+        },
+        "image_source": "Image Source",
+        "image_source_options": {
+            "unsplash": "Unsplash",
+            "unsplash_desc": "High Quality Free Images",
+            "pixabay": "Pixabay",
+            "pixabay_desc": "Community Driven Platform"
+        }
+    },
+    "languages": {
+        "en": "English",
+        "id": "Indonesian",
+        "ja": "Japanese",
+        "zh": "Chinese"
+    },
+    "home": {
+        "title": "Photo Gallery",
+        "no_photos": "No photos available",
+        "no_results": "No results found for \"{0}\"",
+        "offline_mode": "Offline Mode - Showing cached data",
+        "search_hint": "Search photos..."
+    }
+} 

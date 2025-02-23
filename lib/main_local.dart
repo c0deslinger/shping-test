@@ -1,6 +1,7 @@
-import 'package:shping_test/main_common.dart';
-import 'package:shping_test/core/utils/environment.dart';
+import 'package:flutter/material.dart';
+import 'main_common.dart';
+import 'core/utils/environment.dart';
 
-Future<void> main() async {
+void main() async {
   await mainCommon(Environment.local);
 }
