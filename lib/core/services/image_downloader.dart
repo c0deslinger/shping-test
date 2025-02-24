@@ -31,6 +31,7 @@ class FileDownloderService {
           SnackBar(
             content: Text('photo.download_success'.tr()),
             backgroundColor: Colors.green,
+            duration: Durations.medium1,
           ),
         );
       }
