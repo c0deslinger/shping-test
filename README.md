@@ -10,6 +10,12 @@ A modern Flutter application for browsing and managing photos, integrating with 
 
 > **Note:** Click the badge above to view the application demo video
 
+## APK Demo
+
+[![APK Download](https://img.shields.io/badge/Download-APK%20File-green?style=for-the-badge&logo=android&logoColor=white)](https://drive.google.com/file/d/1YHj4bkIed5LVzQg69x8fVN3XnWcbSeDw/view?usp=sharing)
+
+> **Note:** Click the badge above to downlad the apk file
+
 ## Features
 
 ### Image Sources
