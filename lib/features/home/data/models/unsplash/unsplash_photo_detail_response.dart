@@ -1,4 +1,5 @@
 import 'package:shping_test/features/home/data/entities/photo.dart';
+import 'package:shping_test/features/home/data/models/unsplash/unsplash_list_photo_response.dart';
 
 class UnsplashPhotoDetailResponse {
   String? id;
@@ -85,6 +86,7 @@ class UnsplashPhotoDetailResponse {
       title: description ?? 'Untitled Photo',
       photographer: user?.name ?? 'Unknown',
       description: description ?? '',
+      photoProfile: user?.profileImage?.medium ?? urls?.small ?? '',
       likes: likes ?? 0,
       createdAt:
           createdAt != null ? DateTime.parse(createdAt!) : DateTime.now(),
@@ -336,62 +338,62 @@ class Links {
   }
 }
 
-class User {
-  String? id;
-  String? updatedAt;
-  String? username;
-  String? name;
-  String? portfolioUrl;
-  String? bio;
-  String? location;
-  int? totalLikes;
-  int? totalPhotos;
-  int? totalCollections;
-  Links? links;
+// class User {
+//   String? id;
+//   String? updatedAt;
+//   String? username;
+//   String? name;
+//   String? portfolioUrl;
+//   String? bio;
+//   String? location;
+//   int? totalLikes;
+//   int? totalPhotos;
+//   int? totalCollections;
+//   Links? links;
 
-  User({
-    this.id,
-    this.updatedAt,
-    this.username,
-    this.name,
-    this.portfolioUrl,
-    this.bio,
-    this.location,
-    this.totalLikes,
-    this.totalPhotos,
-    this.totalCollections,
-    this.links,
-  });
+//   User({
+//     this.id,
+//     this.updatedAt,
+//     this.username,
+//     this.name,
+//     this.portfolioUrl,
+//     this.bio,
+//     this.location,
+//     this.totalLikes,
+//     this.totalPhotos,
+//     this.totalCollections,
+//     this.links,
+//   });
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    updatedAt = json['updated_at'];
-    username = json['username'];
-    name = json['name'];
-    portfolioUrl = json['portfolio_url'];
-    bio = json['bio'];
-    location = json['location'];
-    totalLikes = json['total_likes'];
-    totalPhotos = json['total_photos'];
-    totalCollections = json['total_collections'];
-    links = json['links'] != null ? Links.fromJson(json['links']) : null;
-  }
+//   User.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     updatedAt = json['updated_at'];
+//     username = json['username'];
+//     name = json['name'];
+//     portfolioUrl = json['portfolio_url'];
+//     bio = json['bio'];
+//     location = json['location'];
+//     totalLikes = json['total_likes'];
+//     totalPhotos = json['total_photos'];
+//     totalCollections = json['total_collections'];
+//     links = json['links'] != null ? Links.fromJson(json['links']) : null;
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['updated_at'] = updatedAt;
-    data['username'] = username;
-    data['name'] = name;
-    data['portfolio_url'] = portfolioUrl;
-    data['bio'] = bio;
-    data['location'] = location;
-    data['total_likes'] = totalLikes;
-    data['total_photos'] = totalPhotos;
-    data['total_collections'] = totalCollections;
-    if (links != null) {
-      data['links'] = links!.toJson();
-    }
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = <String, dynamic>{};
+//     data['id'] = id;
+//     data['updated_at'] = updatedAt;
+//     data['username'] = username;
+//     data['name'] = name;
+//     data['portfolio_url'] = portfolioUrl;
+//     data['bio'] = bio;
+//     data['location'] = location;
+//     data['total_likes'] = totalLikes;
+//     data['total_photos'] = totalPhotos;
+//     data['total_collections'] = totalCollections;
+//     if (links != null) {
+//       data['links'] = links!.toJson();
+//     }
+//     return data;
+//   }
+// }

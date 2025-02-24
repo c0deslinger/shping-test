@@ -105,6 +105,7 @@ class Hits {
       id: id?.toString() ?? '',
       url: largeImageURL ?? webformatURL ?? '',
       smallUrl: webformatURL ?? previewURL ?? '',
+      photoProfile: userImageURL ?? '',
       title: tags ?? 'Untitled Photo',
       photographer: user ?? 'Unknown',
       description: '',

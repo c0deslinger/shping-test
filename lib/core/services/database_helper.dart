@@ -39,7 +39,8 @@ class DatabaseHelper {
             likes INTEGER,
             createdAt TEXT,
             tags TEXT,
-            source TEXT
+            source TEXT,
+            photoProfile TEXT
           )
           ''');
   }
@@ -64,6 +65,7 @@ class DatabaseHelper {
       'url': photo.url,
       'smallUrl': photo.smallUrl,
       'title': photo.title,
+      'photoProfile': photo.photoProfile,
       'photographer': photo.photographer,
       'description': photo.description,
       'source': photo.source,
@@ -112,6 +114,7 @@ class DatabaseHelper {
         createdAt: DateTime.parse(map['createdAt'] as String),
         tags: tags,
         source: map['source'] as String,
+        photoProfile: map['photoProfile'] as String,
       );
     }).toList();
   }

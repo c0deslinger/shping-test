@@ -87,6 +87,8 @@ class UnsplashListPhotoResponse {
       id: id ?? '',
       url: urls?.regular ?? '',
       smallUrl: urls?.small ?? '',
+      photoProfile:
+          user?.profileImage?.small ?? user?.profileImage?.medium ?? '',
       title: description ?? 'Untitled Photo',
       photographer: user?.name ?? 'Unknown',
       description: description ?? '',

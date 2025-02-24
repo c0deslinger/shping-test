@@ -8,6 +8,9 @@ class Photo {
   /// Smaller, optimized image URL for thumbnails
   final String smallUrl;
 
+  /// Profile photo
+  final String photoProfile;
+
   /// Title or description of the photo
   final String title;
 
@@ -35,6 +38,7 @@ class Photo {
       required this.url,
       required this.smallUrl,
       required this.title,
+      required this.photoProfile,
       required this.photographer,
       this.description = '',
       this.likes = 0,
@@ -80,6 +84,8 @@ class Photo {
 
       // Default favorite status
       source: json['source'],
+
+      photoProfile: json['photoProfile'],
     );
   }
 
@@ -96,6 +102,7 @@ class Photo {
       'createdAt': createdAt.toIso8601String(),
       'tags': tags,
       'isFavorite': source,
+      'photoProfile': photoProfile
     };
   }
 
@@ -201,19 +208,18 @@ class Photo {
   }
 
   /// Creates a copy of the photo with optional field overrides
-  Photo copyWith({
-    String? id,
-    String? url,
-    String? smallUrl,
-    String? title,
-    String? photographer,
-    String? description,
-    String? source,
-    int? likes,
-    DateTime? createdAt,
-    List<String>? tags,
-    bool? isFavorite,
-  }) {
+  Photo copyWith(
+      {String? id,
+      String? url,
+      String? smallUrl,
+      String? title,
+      String? photographer,
+      String? description,
+      String? source,
+      int? likes,
+      DateTime? createdAt,
+      List<String>? tags,
+      String? photoProfile}) {
     return Photo(
       id: id ?? this.id,
       url: url ?? this.url,
@@ -225,6 +231,7 @@ class Photo {
       createdAt: createdAt ?? this.createdAt,
       tags: tags ?? this.tags,
       source: source ?? this.source,
+      photoProfile: photoProfile ?? this.photoProfile,
     );
   }
 }

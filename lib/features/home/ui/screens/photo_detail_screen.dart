@@ -269,7 +269,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: CachedNetworkImageProvider(
-                    detailedPhoto.smallUrl,
+                    detailedPhoto.photoProfile,
                   )),
             ),
           ),
