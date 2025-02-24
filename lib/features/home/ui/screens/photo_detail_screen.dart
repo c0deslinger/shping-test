@@ -152,28 +152,21 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
       FileDownloderService fileDownloaderService) {
     return Stack(
       children: [
-        Hero(
-          tag: 'photo_${detailedPhoto.id}_$source',
-          child: CachedNetworkImage(
-            imageUrl: detailedPhoto.url,
-            width: double.infinity,
+        CachedNetworkImage(
+          imageUrl: detailedPhoto.url,
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.cover,
+          fadeInDuration: const Duration(milliseconds: 300),
+          fadeInCurve: Curves.easeOut,
+          placeholder: (context, url) => const ShimmerLoading.rectangular(
             height: double.infinity,
-            fit: BoxFit.cover,
-            fadeInDuration: const Duration(milliseconds: 300),
-            fadeInCurve: Curves.easeOut,
-            memCacheWidth: 1200,
-            memCacheHeight: 1200,
-            maxWidthDiskCache: 2400,
-            maxHeightDiskCache: 2400,
-            placeholder: (context, url) => const ShimmerLoading.rectangular(
-              height: double.infinity,
-            ),
-            errorWidget: (context, url, error) => const Center(
-              child: Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 48,
-              ),
+          ),
+          errorWidget: (context, url, error) => const Center(
+            child: Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 48,
             ),
           ),
         ),

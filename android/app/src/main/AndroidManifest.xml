@@ -40,6 +40,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="io.flutter.embedding.android.EnableImpeller" android:value="false" /> 
     </application>
     <queries>
     <!-- If your app opens https URLs -->
@@ -48,5 +49,4 @@
         <data android:scheme="https" />
     </intent>
     </queries>
-    <meta-data android:name="io.flutter.embedding.android.EnableImpeller" android:value="false" /> 
 </manifest>

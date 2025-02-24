@@ -19,8 +19,7 @@
             "program" : "lib/main_prod.dart",
             "args": [
                 "--flavor",
-                "Prod",
-                "--no-enable-impeller"
+                "Prod"
             ]
         }
     ]
