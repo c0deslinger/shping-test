@@ -1,4 +1,4 @@
-# Photo Album
+# Photo Gallery
 
 A modern Flutter application for browsing and managing photos, integrating with multiple photo APIs including Unsplash and Pixabay.
 
@@ -26,12 +26,12 @@ A modern Flutter application for browsing and managing photos, integrating with 
 
 ### Core Functionality
 
-- **Favorite system**: Save and manage your favorite photos
+- **Favorite system**: Save your favorite photos (sqflite) 
 - **Image operations**:
   - Download images
   - Share photos
 - **Offline support**:
-  - Cache mode for viewing previously loaded images
+  - Cache mode using hive
   - Works without internet connection
 - **Responsive loading**: Shimmer animations for smooth user experience
 
