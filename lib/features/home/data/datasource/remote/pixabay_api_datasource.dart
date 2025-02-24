@@ -1,7 +1,7 @@
 // lib/app/modules/home/data/datasource/remote/pixabay_api_datasource.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shping_test/core/services/db_helper.dart';
+import 'package:shping_test/core/services/database_helper.dart';
 import 'package:shping_test/features/home/data/datasource/remote/photo_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/data/models/pixabay/pixabay_list_photo_response.dart';
@@ -23,15 +23,15 @@ class PixabayApiDataSource implements PhotoApiDataSource {
       final url = Uri.parse(
           '$_baseUrl?key=$_apiKey&page=$page&per_page=$perPage&image_type=photo');
       LoggerUtil.i(
-          '[$methodName] Making request to: ${url.toString().replaceAll(_apiKey, 'API_KEY')}');
+          '[Pixabay $methodName] Making request to: ${url.toString().replaceAll(_apiKey, 'API_KEY')}');
 
       final response = await http.get(url);
 
       stopwatch.stop();
       LoggerUtil.d(
-          '[$methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
-      LoggerUtil.d('[$methodName] Status code: ${response.statusCode}');
-      LoggerUtil.d('[$methodName] Response body: ${response.body}');
+          '[Pixabay $methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
+      LoggerUtil.d('[Pixabay $methodName] Status code: ${response.statusCode}');
+      LoggerUtil.d('[Pixabay $methodName] Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final pixabayResponse =
@@ -46,13 +46,14 @@ class PixabayApiDataSource implements PhotoApiDataSource {
         }
 
         LoggerUtil.i(
-            '[$methodName] Successfully retrieved ${photos.length} photos');
+            '[Pixabay $methodName] Successfully retrieved ${photos.length} photos');
         return photos;
       } else {
-        throw Exception('Failed to load photos: ${response.statusCode}');
+        throw Exception(
+            '[Pixabay $methodName] Failed to load photos: ${response.statusCode}');
       }
     } catch (e, stackTrace) {
-      LoggerUtil.e('[$methodName] Error occurred', e, stackTrace);
+      LoggerUtil.e('[Pixabay $methodName] Error occurred', e, stackTrace);
       rethrow;
     }
   }
@@ -67,14 +68,14 @@ class PixabayApiDataSource implements PhotoApiDataSource {
       final url = Uri.parse(
           '$_baseUrl?key=$_apiKey&q=${Uri.encodeComponent(query)}&page=$page&per_page=$perPage&image_type=photo');
       LoggerUtil.i(
-          '[$methodName] Making request to: ${url.toString().replaceAll(_apiKey, 'API_KEY')}');
+          '[Pixabay $methodName] Making request to: ${url.toString().replaceAll(_apiKey, 'API_KEY')}');
 
       final response = await http.get(url);
 
       stopwatch.stop();
       LoggerUtil.d(
-          '[$methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
-      LoggerUtil.d('[$methodName] Response body: ${response.body}');
+          '[Pixabay $methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
+      LoggerUtil.d('[Pixabay $methodName] Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final pixabayResponse =
@@ -83,13 +84,14 @@ class PixabayApiDataSource implements PhotoApiDataSource {
             pixabayResponse.hits?.map((hit) => hit.toPhoto()).toList() ?? [];
 
         LoggerUtil.i(
-            '[$methodName] Successfully retrieved ${photos.length} photos');
+            '[Pixabay $methodName] Successfully retrieved ${photos.length} photos');
         return photos;
       } else {
-        throw Exception('Failed to search photos: ${response.statusCode}');
+        throw Exception(
+            '[Pixabay $methodName] Failed to search photos: ${response.statusCode}');
       }
     } catch (e, stackTrace) {
-      LoggerUtil.e('[$methodName] Error occurred', e, stackTrace);
+      LoggerUtil.e('[Pixabay $methodName] Error occurred', e, stackTrace);
       rethrow;
     }
   }
@@ -102,21 +104,21 @@ class PixabayApiDataSource implements PhotoApiDataSource {
     try {
       final url = Uri.parse('$_baseUrl?key=$_apiKey&id=$id');
       LoggerUtil.i(
-          '[$methodName] Making request to: ${url.toString().replaceAll(_apiKey, 'API_KEY')}');
+          '[Pixabay $methodName] Making request to: ${url.toString().replaceAll(_apiKey, 'API_KEY')}');
 
       final response = await http.get(url);
 
       stopwatch.stop();
       LoggerUtil.d(
-          '[$methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
-      LoggerUtil.d('[$methodName] Status code: ${response.statusCode}');
-      LoggerUtil.d('[$methodName] Response body: ${response.body}');
+          '[Pixabay $methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
+      LoggerUtil.d('[Pixabay $methodName] Status code: ${response.statusCode}');
+      LoggerUtil.d('[Pixabay $methodName] Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final pixabayResponse =
             PixabayPhotoDetailResponse.fromJson(json.decode(response.body));
         if (pixabayResponse.hits?.isEmpty ?? true) {
-          throw Exception('Photo not found');
+          throw Exception('[Pixabay $methodName] Photo not found');
         }
 
         // Convert to Photo and check favorite status
@@ -125,10 +127,11 @@ class PixabayApiDataSource implements PhotoApiDataSource {
 
         return photo;
       } else {
-        throw Exception('Failed to load photo details: ${response.statusCode}');
+        throw Exception(
+            '[Pixabay $methodName] Failed to load photo details: ${response.statusCode}');
       }
     } catch (e, stackTrace) {
-      LoggerUtil.e('[$methodName] Error occurred', e, stackTrace);
+      LoggerUtil.e('[Pixabay $methodName] Error occurred', e, stackTrace);
       rethrow;
     }
   }

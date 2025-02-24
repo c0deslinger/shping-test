@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:shping_test/core/services/connectivity_service.dart';
 
+// This class is responsible for managing network connectivity state and notifying listeners of changes.
 class NetworkProvider with ChangeNotifier {
   final ConnectivityService _connectivityService = ConnectivityService();
   late final StreamSubscription<bool> _connectivitySubscription;

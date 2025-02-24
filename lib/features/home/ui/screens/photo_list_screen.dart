@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shping_test/features/settings/providers/settings_provider.dart';
 import 'package:shping_test/theme/text_styles.dart';
 import 'package:shping_test/core/widgets/error_retry_widget.dart';
 import 'package:shping_test/core/widgets/no_data_available_widget.dart';
@@ -26,15 +27,22 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
 
   /// Store PhotoProvider to avoid repeated Provider.of calls
   late PhotoProvider _photoProvider;
+  late SettingsProvider _settingProvider;
 
   @override
   void initState() {
     super.initState();
     // Fetch initial photos after first frame is rendered
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Store the provider once for multiple uses
-      _photoProvider = Provider.of<PhotoProvider>(context, listen: false);
-      _photoProvider.fetchPhotos();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _settingProvider = Provider.of<SettingsProvider>(context, listen: false);
+      // waiting load preference on setting
+      if (_settingProvider.imageSource == null) {
+        await Future.delayed((const Duration(milliseconds: 100)));
+        if (mounted) {
+          _photoProvider = Provider.of<PhotoProvider>(context, listen: false);
+          _photoProvider.fetchPhotos();
+        }
+      }
     });
     // Set up scroll listener for infinite scrolling
     _scrollController.addListener(_scrollListener);

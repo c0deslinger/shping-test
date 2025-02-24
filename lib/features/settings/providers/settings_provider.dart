@@ -9,7 +9,7 @@ class SettingsProvider with ChangeNotifier {
   static const String _imageSourceKey = 'image_source';
 
   /// Currently selected image source
-  ImageSource _imageSource = ImageSource.unsplash;
+  ImageSource? _imageSource;
   SharedPreferences? _prefs;
   VoidCallback? onImageSourceChanged;
 
@@ -19,13 +19,14 @@ class SettingsProvider with ChangeNotifier {
   }
 
   /// Getter for current image source
-  ImageSource get imageSource => _imageSource;
+  ImageSource? get imageSource => _imageSource;
 
   /// Loads saved image source preference from SharedPreferences
   Future<void> _loadPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     final sourceIndex = _prefs?.getInt(_imageSourceKey) ?? 0;
     _imageSource = ImageSource.values[sourceIndex];
+    _imageSource ??= ImageSource.unsplash;
     notifyListeners();
   }
 

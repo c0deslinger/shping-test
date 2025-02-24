@@ -1,0 +1,2 @@
+/Users/mm/Documents/Work/Shping/shping-test/android/app/.cxx/RelWithDebInfo/1j1m2j2q/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/mm/Documents/Work/Shping/shping-test/android/app/.cxx/RelWithDebInfo/1j1m2j2q/arm64-v8a/CMakeFiles/rebuild_cache.dir

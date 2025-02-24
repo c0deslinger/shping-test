@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:shping_test/core/services/db_helper.dart';
+import 'package:shping_test/core/services/database_helper.dart';
 import 'package:shping_test/utils/logger.dart';
 import '../../home/data/entities/photo.dart';
 
@@ -8,7 +8,7 @@ class FavoriteProvider with ChangeNotifier {
   List<Photo> _favorites = [];
 
   FavoriteProvider(this._databaseHelper) {
-    LoggerUtil.i('Initializing FavoriteProvider');
+    LoggerUtil.i('[Favorite] Initializing FavoriteProvider');
     _loadFavorites();
   }
 
@@ -16,12 +16,14 @@ class FavoriteProvider with ChangeNotifier {
 
   Future<void> _loadFavorites() async {
     try {
-      LoggerUtil.d('Loading favorites from database');
+      LoggerUtil.d('[Favorite] Loading favorites from database');
       _favorites = await _databaseHelper.getAllFavorites();
-      LoggerUtil.i('Loaded ${_favorites.length} favorites from database');
+      LoggerUtil.i(
+          '[Favorite] Loaded ${_favorites.length} favorites from database');
       notifyListeners();
     } catch (e, stackTrace) {
-      LoggerUtil.e('Failed to load favorites from database', e, stackTrace);
+      LoggerUtil.e(
+          '[Favorite] Failed to load favorites from database', e, stackTrace);
       _favorites = [];
       notifyListeners();
     }
@@ -32,51 +34,64 @@ class FavoriteProvider with ChangeNotifier {
       final isFavorite = await _databaseHelper.isFavorite(photo.id);
 
       if (isFavorite) {
-        LoggerUtil.d('Removing photo ${photo.id} from favorites');
+        LoggerUtil.d('[Favorite] Removing photo ${photo.id} from favorites');
         await _databaseHelper.removeFavorite(photo.id);
         photo.isFavorite = false;
         _favorites.removeWhere((p) => p.id == photo.id);
         LoggerUtil.i(
-            'Successfully removed photo ${photo.id} from favorites. Remaining: ${_favorites.length}');
+            '[Favorite] Successfully removed photo ${photo.id} from favorites. Remaining: ${_favorites.length}');
       } else {
-        LoggerUtil.d('Adding photo ${photo.id} to favorites');
+        LoggerUtil.d('[Favorite] Adding photo ${photo.id} to favorites');
         final updatedPhoto = await _databaseHelper.insertFavorite(photo);
         _favorites.add(updatedPhoto);
         LoggerUtil.i(
-            'Successfully added photo ${photo.id} to favorites. Total: ${_favorites.length}');
+            '[Favorite] Successfully added photo ${photo.id} to favorites. Total: ${_favorites.length}');
       }
 
       notifyListeners();
     } catch (e, stackTrace) {
       LoggerUtil.e(
-        'Error toggling favorite status for photo ${photo.id}',
-        e,
-        stackTrace,
-      );
-      // Optionally rethrow the exception if you want to handle it in the UI
-      // rethrow;
+          '[Favorite] Error toggling favorite status for photo ${photo.id}',
+          e,
+          stackTrace);
     }
   }
 
-  Future<bool> checkIsFavorite(String photoId) async {
+  Future<bool> checkIsFavoriteOnDb(String photoId) async {
     try {
-      LoggerUtil.d('Checking favorite status for photo $photoId');
+      LoggerUtil.d('[Favorite] Checking favorite status for photo $photoId');
       final isFavorite = await _databaseHelper.isFavorite(photoId);
-      LoggerUtil.v('Photo $photoId is${isFavorite ? '' : ' not'} in favorites');
+      LoggerUtil.v(
+          '[Favorite] Photo $photoId is${isFavorite ? '' : ' not'} in favorites');
       return isFavorite;
     } catch (e, stackTrace) {
       LoggerUtil.e(
-        'Error checking favorite status for photo $photoId',
-        e,
-        stackTrace,
-      );
+          '[Favorite] Error checking favorite status for photo $photoId',
+          e,
+          stackTrace);
+      return false;
+    }
+  }
+
+  bool checkIsFavoriteOnList(String photoId) {
+    try {
+      LoggerUtil.d('[Favorite] Checking favorite status for photo $photoId');
+      final isFavorite = _favorites.any((p) => p.id == photoId);
+      LoggerUtil.v(
+          '[Favorite] Photo $photoId is${isFavorite ? '' : ' not'} in favorites');
+      return isFavorite;
+    } catch (e, stackTrace) {
+      LoggerUtil.e(
+          '[Favorite] Error checking favorite status for photo $photoId',
+          e,
+          stackTrace);
       return false;
     }
   }
 
   // Optional: Add method to refresh favorites
   Future<void> refreshFavorites() async {
-    LoggerUtil.d('Refreshing favorites list');
+    LoggerUtil.d('[Favorite] Refreshing favorites list');
     await _loadFavorites();
   }
 }

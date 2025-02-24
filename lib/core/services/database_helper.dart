@@ -28,19 +28,19 @@ class DatabaseHelper {
 
   Future<void> _createDB(Database db, int version) async {
     await db.execute('''
-CREATE TABLE favorites (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  photoId TEXT UNIQUE,
-  url TEXT,
-  smallUrl TEXT,
-  title TEXT,
-  photographer TEXT,
-  description TEXT,
-  likes INTEGER,
-  createdAt TEXT,
-  tags TEXT
-)
-''');
+          CREATE TABLE favorites (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            photoId TEXT UNIQUE,
+            url TEXT,
+            smallUrl TEXT,
+            title TEXT,
+            photographer TEXT,
+            description TEXT,
+            likes INTEGER,
+            createdAt TEXT,
+            tags TEXT
+          )
+          ''');
   }
 
   Future<bool> isFavorite(String photoId) async {

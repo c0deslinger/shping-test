@@ -8,8 +8,8 @@ class OfflineBannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NetworkProvider>(builder: (context, provider, child) {
-      if (!provider.isConnected) {
+    return Consumer<NetworkProvider>(builder: (context, network, child) {
+      if (!network.isConnected) {
         return Container(
           width: double.infinity,
           color: Colors.orange,

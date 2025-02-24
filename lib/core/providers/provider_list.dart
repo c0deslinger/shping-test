@@ -3,7 +3,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:shping_test/core/providers/network_provider.dart';
 import 'package:shping_test/core/providers/theme_provider.dart';
 import 'package:shping_test/core/services/connectivity_service.dart';
-import 'package:shping_test/core/services/db_helper.dart';
+import 'package:shping_test/core/services/database_helper.dart';
 import 'package:shping_test/features/home/data/datasource/local/hive_local_datasource.dart';
 import 'package:shping_test/features/home/data/datasource/remote/pixabay_api_datasource.dart';
 import 'package:shping_test/features/home/data/datasource/remote/unsplash_api_datasource.dart';
@@ -20,13 +20,14 @@ class ProviderList {
     final unsplashApiDataSource = UnsplashApiDataSource();
     final pixabayApiDataSource = PixabayApiDataSource();
 
-    // Initialize repositories
+    // Initialize repositories for unsplash
     final unsplashRepository = PhotoRepositoryImpl(
       apiDataSource: unsplashApiDataSource,
       localDataSource: localDataSource,
       connectivityService: connectivityService,
     );
 
+    // Initialize repositories for pixabay
     final pixabayRepository = PhotoRepositoryImpl(
       apiDataSource: pixabayApiDataSource,
       localDataSource: localDataSource,

@@ -11,6 +11,7 @@ import 'package:shping_test/core/widgets/glass_container.dart';
 import 'package:shping_test/core/widgets/shimmer_loading.dart';
 import 'package:shping_test/features/favorite/provider/favorite_provider.dart';
 import 'package:shping_test/features/home/ui/widgets/shimmer_photo_detail.dart';
+import 'package:shping_test/utils/logger.dart';
 import '../../data/entities/photo.dart';
 import '../../providers/photo_provider.dart';
 
@@ -37,7 +38,6 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
 
     // Use WidgetsBinding to safely access context after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Extract photo ID and store provider
       _photoId = GoRouterState.of(context).uri.queryParameters['photoId'];
       _source = GoRouterState.of(context).uri.queryParameters['source'];
 
@@ -58,7 +58,16 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                color: Colors.black.withValues(alpha: 0.5),
+                blurRadius: 4,
+              )
+            ],
+          ),
           onPressed: () => context.pop(),
         ),
         actions: [
@@ -72,11 +81,15 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                     return const SizedBox.shrink();
                   }
 
+                  bool isFavorited =
+                      favoriteProvider.checkIsFavoriteOnList(detailedPhoto.id);
+
+                  LoggerUtil.d(
+                      'is favorited: ${favoriteProvider.favorites.length}');
+
                   return IconButton(
                     icon: Icon(
-                      detailedPhoto.isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
+                      isFavorited ? Icons.favorite : Icons.favorite_border,
                       color: Colors.white,
                       shadows: [
                         Shadow(
@@ -86,7 +99,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                       ],
                     ),
                     onPressed: () {
-                      // Toggle favorite status
+                      debugPrint('set favorite ${detailedPhoto.id}');
                       favoriteProvider.toggleFavorite(detailedPhoto);
                     },
                   );
@@ -247,39 +260,58 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
     );
   }
 
-  // Extracted method for stats row
+  // Stats row of image info
   Widget _buildStatsRow(Photo detailedPhoto) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _buildStatItem(
-          Icons.person_outline,
-          detailedPhoto.photographer,
-          'photo.by'.tr(),
-        ),
-        const SizedBox(width: 16),
-        _buildStatItem(
-          Icons.favorite_outline,
-          NumberFormat.compact().format(detailedPhoto.likes),
-          'photo.likes'.tr(),
-        ),
-        const SizedBox(width: 16),
-        _buildStatItem(
-          Icons.calendar_today_outlined,
-          DateFormat('dd MMM yyyy').format(detailedPhoto.createdAt),
-          'photo.date'.tr(),
+        Row(children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: CachedNetworkImageProvider(
+                    detailedPhoto.smallUrl,
+                  )),
+            ),
+          ),
+          const SizedBox(width: 16),
+          _buildStatItem(
+            Icons.person_outline,
+            detailedPhoto.photographer,
+            'photo.by'.tr(),
+          ),
+          const SizedBox(width: 16),
+        ]),
+        Row(
+          children: [
+            Container(
+              width: 1,
+              height: 40,
+              color: Colors.white70,
+            ),
+            const SizedBox(width: 16),
+            _buildStatItem(
+              Icons.favorite_outline,
+              NumberFormat.compact().format(detailedPhoto.likes),
+              'photo.likes'.tr(),
+            ),
+          ],
         ),
       ],
     );
   }
 
-  // Extracted method for tags section
+  // List of tags
   Widget _buildTagsSection(Photo detailedPhoto) {
     if (detailedPhoto.tags.isEmpty) return const SizedBox.shrink();
 
     return SizedBox(
-      height: 36,
+      height: 40,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: detailedPhoto.tags.length,
@@ -306,7 +338,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
     );
   }
 
-  // Extracted method for action buttons
+  // Action buttons
   Widget _buildActionButtons(
       BuildContext context,
       Photo detailedPhoto,
@@ -324,7 +356,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
     );
   }
 
-  // Extracted method for download button
+  // Download button
   Widget _buildDownloadButton(BuildContext context, Photo detailedPhoto,
       FileDownloderService fileDownloaderService) {
     return GestureDetector(
@@ -353,7 +385,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
     );
   }
 
-  // Extracted method for share button
+  // Share button
   Widget _buildShareButton(BuildContext context, Photo detailedPhoto,
       FileShareService fileShareService) {
     return GestureDetector(
@@ -369,7 +401,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
     );
   }
 
-  // Helper method for building stat items
+  // Stat items
   Widget _buildStatItem(IconData icon, String value, String label) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

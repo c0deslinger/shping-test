@@ -173,6 +173,7 @@ class PhotoProvider with ChangeNotifier {
     _status = LoadingStatus.loading;
     notifyListeners();
     try {
+      detailedPhoto = null;
       detailedPhoto = await _currentRepository.getPhotoDetails(id);
     } catch (e) {
       _errorMessage = e.toString();

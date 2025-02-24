@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:shping_test/core/widgets/glass_container.dart';
+import 'package:shping_test/features/favorite/provider/favorite_provider.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
+import 'package:shping_test/features/home/providers/photo_provider.dart';
 import 'package:shping_test/features/home/ui/screens/photo_detail_screen.dart';
 import 'package:shping_test/core/widgets/shimmer_loading.dart';
 
@@ -36,6 +39,7 @@ class _PhotoCardState extends State<PhotoCard> {
             child: Stack(
               children: [
                 // Background Image
+                // Add source to prevent duplicate tag ID from list photo screen and favorite screen
                 Hero(
                   tag: 'photo_${widget.photo.id}_${widget.source}',
                   child: CachedNetworkImage(
@@ -59,6 +63,30 @@ class _PhotoCardState extends State<PhotoCard> {
                   ),
                 ),
 
+                Positioned(
+                  right: 0,
+                  child: Consumer<FavoriteProvider>(
+                    builder: (context, favoriteProvider, child) {
+                      bool isFavorited = favoriteProvider
+                          .checkIsFavoriteOnList(widget.photo.id);
+                      return IconButton(
+                        icon: Icon(
+                          isFavorited ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withValues(alpha: 0.5),
+                              blurRadius: 4,
+                            )
+                          ],
+                        ),
+                        onPressed: () {
+                          favoriteProvider.toggleFavorite(widget.photo);
+                        },
+                      );
+                    },
+                  ),
+                ),
                 // Glass Info Container
                 Positioned(
                   left: 0,

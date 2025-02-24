@@ -8,7 +8,7 @@ import 'dart:async' as _i5;
 import 'package:connectivity_plus/connectivity_plus.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:shping_test/core/services/connectivity_service.dart' as _i8;
-import 'package:shping_test/core/services/db_helper.dart' as _i3;
+import 'package:shping_test/core/services/database_helper.dart' as _i3;
 import 'package:shping_test/features/home/data/datasource/local/photo_local_datasource.dart'
     as _i7;
 import 'package:shping_test/features/home/data/datasource/remote/photo_api_datasource.dart'

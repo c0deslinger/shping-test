@@ -1,7 +1,7 @@
 // lib/app/modules/home/data/datasource/remote/unsplash_api_datasource.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shping_test/core/services/db_helper.dart';
+import 'package:shping_test/core/services/database_helper.dart';
 import 'package:shping_test/features/home/data/datasource/remote/photo_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/data/models/unsplash/unsplash_list_photo_response.dart';
@@ -24,7 +24,7 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
     try {
       final url = Uri.parse('$_baseUrl/photos?page=$page&per_page=$perPage');
       LoggerUtil.i(
-          '[$methodName] Making request to: ${url.toString().replaceAll(_accessKey, 'API_KEY')}');
+          '[Unsplash $methodName] Making request to: ${url.toString().replaceAll(_accessKey, 'API_KEY')}');
 
       final response = await http.get(
         url,
@@ -33,8 +33,8 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
 
       stopwatch.stop();
       LoggerUtil.d(
-          '[$methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
-      LoggerUtil.d('[$methodName] Response body: ${response.body}');
+          '[Unsplash $methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
+      LoggerUtil.d('[Unsplash $methodName] Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
@@ -49,13 +49,13 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
         }));
 
         LoggerUtil.i(
-            '[$methodName] Successfully retrieved ${photos.length} photos');
+            '[Unsplash $methodName] Successfully retrieved ${photos.length} photos');
         return photos;
       } else {
         throw Exception('Failed to load photos: ${response.statusCode}');
       }
     } catch (e, stackTrace) {
-      LoggerUtil.e('[$methodName] Error occurred', e, stackTrace);
+      LoggerUtil.e('[Unsplash $methodName] Error occurred', e, stackTrace);
       rethrow;
     }
   }
@@ -70,7 +70,7 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
       final url = Uri.parse(
           '$_baseUrl/search/photos?query=$query&page=$page&per_page=$perPage');
       LoggerUtil.i(
-          '[$methodName] Making request to: ${url.toString().replaceAll(_accessKey, 'API_KEY')}');
+          '[Unsplash $methodName] Making request to: ${url.toString().replaceAll(_accessKey, 'API_KEY')}');
 
       final response = await http.get(
         url,
@@ -79,8 +79,8 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
 
       stopwatch.stop();
       LoggerUtil.d(
-          '[$methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
-      LoggerUtil.d('[$methodName] Response body: ${response.body}');
+          '[Unsplash $methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
+      LoggerUtil.d('[Unsplash $methodName] Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
@@ -97,13 +97,13 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
         }
 
         LoggerUtil.i(
-            '[$methodName] Successfully retrieved ${photos.length} photos');
+            '[Unsplash $methodName] Successfully retrieved ${photos.length} photos');
         return photos;
       } else {
         throw Exception('Failed to search photos: ${response.statusCode}');
       }
     } catch (e, stackTrace) {
-      LoggerUtil.e('[$methodName] Error occurred', e, stackTrace);
+      LoggerUtil.e('[Unsplash $methodName] Error occurred', e, stackTrace);
       rethrow;
     }
   }
@@ -116,7 +116,7 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
     try {
       final url = Uri.parse('$_baseUrl/photos/$id');
       LoggerUtil.i(
-          '[$methodName] Making request to: ${url.toString().replaceAll(_accessKey, 'API_KEY')}');
+          '[Unsplash $methodName] Making request to: ${url.toString().replaceAll(_accessKey, 'API_KEY')}');
 
       final response = await http.get(
         url,
@@ -125,8 +125,8 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
 
       stopwatch.stop();
       LoggerUtil.d(
-          '[$methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
-      LoggerUtil.d('[$methodName] Response body: ${response.body}');
+          '[Unsplash $methodName] Response received in ${stopwatch.elapsedMilliseconds}ms');
+      LoggerUtil.d('[Unsplash $methodName] Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final photoResponse =
@@ -141,7 +141,7 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
         throw Exception('Failed to load photo details: ${response.statusCode}');
       }
     } catch (e, stackTrace) {
-      LoggerUtil.e('[$methodName] Error occurred', e, stackTrace);
+      LoggerUtil.e('[Unsplash $methodName] Error occurred', e, stackTrace);
       rethrow;
     }
   }

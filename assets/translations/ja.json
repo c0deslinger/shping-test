@@ -48,5 +48,7 @@
         "share_error": "画像の共有に失敗しました",
         "permission_denied": "画像を保存するにはストレージの権限が必要です"
     },
-    "favorite": "お気に入り"
+    "favorite": "お気に入り",
+    "retry" : "再試行",
+"back" : "戻る"
 }

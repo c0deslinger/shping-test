@@ -48,5 +48,7 @@
         "share_error": "Gagal membagikan gambar",
         "permission_denied": "Izin penyimpanan diperlukan untuk menyimpan gambar"
     },
-    "favorite" : "Favorite Saya"
+    "favorite" : "Favorite Saya",
+    "retry" : "Coba Lagi",
+"back" : "Kembali"
 } 

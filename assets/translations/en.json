@@ -48,5 +48,7 @@
         "share_error": "Failed to share image",
         "permission_denied": "Storage permission is required to save images"
     },
-    "favorite" : "My Favorite"
+    "favorite" : "My Favorite",
+    "retry" : "Retry",
+    "back" : "Back"
 } 

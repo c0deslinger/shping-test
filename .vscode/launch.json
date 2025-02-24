@@ -8,8 +8,7 @@
             "program" : "lib/main_dev.dart",
             "args": [
                 "--flavor",
-                "Dev",
-                "--no-enable-impeller"
+                "Dev"
             ]
         },
         {

@@ -48,5 +48,7 @@
         "share_error": "分享图片失败",
         "permission_denied": "需要存储权限以保存图片"
     },
-    "favorite": "我的收藏"
+    "favorite": "我的收藏",
+    "retry" : "重试",
+"back" : "返回"
 }

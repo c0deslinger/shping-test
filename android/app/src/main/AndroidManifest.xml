@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shping.photoalbum">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission
        android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!--  if androidExistNotSave = true -->
@@ -15,9 +14,6 @@
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         >
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4385164164114125~5242300697"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -52,4 +48,5 @@
         <data android:scheme="https" />
     </intent>
     </queries>
+    <meta-data android:name="io.flutter.embedding.android.EnableImpeller" android:value="false" /> 
 </manifest>

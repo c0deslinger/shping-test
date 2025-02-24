@@ -73,7 +73,7 @@ class PhotoRepositoryImpl implements PhotoRepository {
       final cachedPhoto =
           await _localDataSource.getPhotoDetails(_sourceKey, id);
       if (cachedPhoto != null) return cachedPhoto;
-      throw Exception('Failed to fetch photo details: $e');
+      rethrow;
     }
   }
 
