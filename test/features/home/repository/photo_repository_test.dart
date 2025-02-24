@@ -7,6 +7,7 @@ import 'package:shping_test/features/home/data/datasource/remote/photo_api_datas
 import 'package:shping_test/features/home/data/datasource/remote/unsplash_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/repository/photo_repository_impl.dart';
+import 'package:shping_test/features/settings/providers/settings_provider.dart';
 
 import 'photo_repository_test.mocks.dart';
 
@@ -66,7 +67,8 @@ void main() {
             .thenAnswer((_) async => true);
         when(mockApiDataSource.getPhotos(page: 1, perPage: 20))
             .thenAnswer((_) async => testPhotos);
-        when(mockLocalDataSource.cachePhotos('pixabay', testPhotos, page: 1))
+        when(mockLocalDataSource.cachePhotos(ImageSource.pixabay, testPhotos,
+                page: 1))
             .thenAnswer((_) async => {});
 
         // Act
@@ -76,7 +78,8 @@ void main() {
         expect(result, equals(testPhotos));
         verify(mockConnectivityService.checkCurrentConnectivity()).called(1);
         verify(mockApiDataSource.getPhotos(page: 1, perPage: 20)).called(1);
-        verify(mockLocalDataSource.cachePhotos('pixabay', testPhotos, page: 1))
+        verify(mockLocalDataSource.cachePhotos(ImageSource.pixabay, testPhotos,
+                page: 1))
             .called(1);
       });
 
@@ -84,7 +87,7 @@ void main() {
         // Arrange
         when(mockConnectivityService.checkCurrentConnectivity())
             .thenAnswer((_) async => false);
-        when(mockLocalDataSource.getPhotos('pixabay'))
+        when(mockLocalDataSource.getPhotos(ImageSource.pixabay))
             .thenAnswer((_) async => testPhotos);
 
         // Act
@@ -93,7 +96,7 @@ void main() {
         // Assert
         expect(result, equals(testPhotos));
         verify(mockConnectivityService.checkCurrentConnectivity()).called(1);
-        verify(mockLocalDataSource.getPhotos('pixabay')).called(1);
+        verify(mockLocalDataSource.getPhotos(ImageSource.pixabay)).called(1);
         verifyNever(mockApiDataSource.getPhotos());
       });
 
@@ -103,7 +106,7 @@ void main() {
             .thenAnswer((_) async => true);
         when(mockApiDataSource.getPhotos(page: 1, perPage: 20))
             .thenThrow(Exception('API Error'));
-        when(mockLocalDataSource.getPhotos('pixabay'))
+        when(mockLocalDataSource.getPhotos(ImageSource.pixabay))
             .thenAnswer((_) async => testPhotos);
 
         // Act
@@ -112,7 +115,7 @@ void main() {
         // Assert
         expect(result, equals(testPhotos));
         verify(mockApiDataSource.getPhotos(page: 1, perPage: 20)).called(1);
-        verify(mockLocalDataSource.getPhotos('pixabay')).called(1);
+        verify(mockLocalDataSource.getPhotos(ImageSource.pixabay)).called(1);
       });
 
       test('should throw exception when both API and cache fail', () async {
@@ -121,7 +124,7 @@ void main() {
             .thenAnswer((_) async => true);
         when(mockApiDataSource.getPhotos(page: 1, perPage: 20))
             .thenThrow(Exception('API Error'));
-        when(mockLocalDataSource.getPhotos('pixabay'))
+        when(mockLocalDataSource.getPhotos(ImageSource.pixabay))
             .thenAnswer((_) async => []);
 
         // Act & Assert
@@ -147,7 +150,7 @@ void main() {
         when(mockApiDataSource.searchPhotos(testQuery, page: 1, perPage: 20))
             .thenAnswer((_) async => testPhotos);
         when(mockLocalDataSource.cacheSearchResults(
-          'pixabay',
+          ImageSource.pixabay,
           testQuery,
           testPhotos,
           page: 1,
@@ -161,7 +164,7 @@ void main() {
         verify(mockApiDataSource.searchPhotos(testQuery, page: 1, perPage: 20))
             .called(1);
         verify(mockLocalDataSource.cacheSearchResults(
-          'pixabay',
+          ImageSource.pixabay,
           testQuery,
           testPhotos,
           page: 1,
@@ -172,7 +175,8 @@ void main() {
         // Arrange
         when(mockConnectivityService.checkCurrentConnectivity())
             .thenAnswer((_) async => false);
-        when(mockLocalDataSource.getSearchResults('pixabay', testQuery))
+        when(mockLocalDataSource.getSearchResults(
+                ImageSource.pixabay, testQuery))
             .thenAnswer((_) async => testPhotos);
 
         // Act
@@ -180,7 +184,8 @@ void main() {
 
         // Assert
         expect(result, equals(testPhotos));
-        verify(mockLocalDataSource.getSearchResults('pixabay', testQuery))
+        verify(mockLocalDataSource.getSearchResults(
+                ImageSource.pixabay, testQuery))
             .called(1);
         verifyNever(mockApiDataSource.searchPhotos(any));
       });
@@ -210,7 +215,8 @@ void main() {
             .thenAnswer((_) async => true);
         when(mockApiDataSource.getPhotoDetails('1'))
             .thenAnswer((_) async => testPhoto);
-        when(mockLocalDataSource.cachePhotoDetails('pixabay', testPhoto))
+        when(mockLocalDataSource.cachePhotoDetails(
+                ImageSource.pixabay, testPhoto))
             .thenAnswer((_) async => {});
 
         // Act
@@ -219,7 +225,8 @@ void main() {
         // Assert
         expect(result, equals(testPhoto));
         verify(mockApiDataSource.getPhotoDetails('1')).called(1);
-        verify(mockLocalDataSource.cachePhotoDetails('pixabay', testPhoto))
+        verify(mockLocalDataSource.cachePhotoDetails(
+                ImageSource.pixabay, testPhoto))
             .called(1);
       });
 
@@ -227,7 +234,7 @@ void main() {
         // Arrange
         when(mockConnectivityService.checkCurrentConnectivity())
             .thenAnswer((_) async => false);
-        when(mockLocalDataSource.getPhotoDetails('pixabay', '1'))
+        when(mockLocalDataSource.getPhotoDetails(ImageSource.pixabay, '1'))
             .thenAnswer((_) async => testPhoto);
 
         // Act
@@ -235,7 +242,8 @@ void main() {
 
         // Assert
         expect(result, equals(testPhoto));
-        verify(mockLocalDataSource.getPhotoDetails('pixabay', '1')).called(1);
+        verify(mockLocalDataSource.getPhotoDetails(ImageSource.pixabay, '1'))
+            .called(1);
         verifyNever(mockApiDataSource.getPhotoDetails(any));
       });
     });

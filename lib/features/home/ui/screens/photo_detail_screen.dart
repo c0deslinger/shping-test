@@ -242,10 +242,8 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
         const SizedBox(height: 8),
         Text(
           detailedPhoto.description,
-          style: AppTextStyle.bodySmall.copyWith(
-            color: Colors.white70,
-            fontSize: 11,
-          ),
+          style: AppTextStyle.bodySmall
+              .copyWith(color: Colors.white70, fontSize: 11),
           maxLines: 4,
           overflow: TextOverflow.ellipsis,
         ),
@@ -367,9 +365,16 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
             const SizedBox(width: 8),
             Text(
               'photo.download_image'.tr(),
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    offset: const Offset(0, 2),
+                    blurRadius: 4,
+                  ),
+                ],
               ),
             ),
           ],
@@ -401,9 +406,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
       children: [
         Text(
           label,
-          style: AppTextStyle.bodySmall.copyWith(
-            color: Colors.white70,
-          ),
+          style: AppTextStyle.bodySmall.copyWith(color: Colors.white70),
         ),
         const SizedBox(height: 4),
         Row(
@@ -412,9 +415,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
             const SizedBox(width: 4),
             Text(
               value,
-              style: AppTextStyle.titleMedium.copyWith(
-                color: Colors.white,
-              ),
+              style: AppTextStyle.titleMedium.copyWith(color: Colors.white),
             ),
           ],
         ),

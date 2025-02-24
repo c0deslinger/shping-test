@@ -39,22 +39,25 @@ class _PhotoCardState extends State<PhotoCard> {
               children: [
                 // Background Image
                 // Add source to prevent duplicate tag ID from list photo screen and favorite screen
-                CachedNetworkImage(
-                  imageUrl: widget.photo.smallUrl,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fadeInDuration: const Duration(milliseconds: 300),
-                  fadeInCurve: Curves.easeOut,
-                  placeholder: (context, url) =>
-                      const ShimmerLoading.rectangular(
+                Hero(
+                  tag: 'photo_${widget.photo.id}_${widget.source}',
+                  child: CachedNetworkImage(
+                    imageUrl: widget.photo.smallUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                     height: double.infinity,
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(
-                      Icons.error_outline,
-                      color: Colors.red,
-                      size: 32,
+                    fadeInDuration: const Duration(milliseconds: 300),
+                    fadeInCurve: Curves.easeOut,
+                    placeholder: (context, url) =>
+                        const ShimmerLoading.rectangular(
+                      height: double.infinity,
+                    ),
+                    errorWidget: (context, url, error) => const Center(
+                      child: Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 32,
+                      ),
                     ),
                   ),
                 ),

@@ -38,7 +38,8 @@ class DatabaseHelper {
             description TEXT,
             likes INTEGER,
             createdAt TEXT,
-            tags TEXT
+            tags TEXT,
+            source TEXT
           )
           ''');
   }
@@ -65,9 +66,10 @@ class DatabaseHelper {
       'title': photo.title,
       'photographer': photo.photographer,
       'description': photo.description,
-      'likes': photo.likes,
+      'source': photo.source,
       'createdAt': photo.createdAt.toIso8601String(),
       'tags': tagsString,
+      'likes': photo.likes,
     };
 
     await db.insert(
@@ -75,9 +77,6 @@ class DatabaseHelper {
       favoriteMap,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-
-    // Mark the photo as favorite
-    photo.isFavorite = true;
     return photo;
   }
 
@@ -90,9 +89,13 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Photo>> getAllFavorites() async {
+  Future<List<Photo>> getAllFavorites(String source) async {
     final db = await database;
-    final result = await db.query('favorites');
+    final result = await db.query(
+      'favorites',
+      where: 'source = ?',
+      whereArgs: [source],
+    );
     return result.map((map) {
       // Convert tags string back to list
       final tagsString = map['tags'] as String? ?? '';
@@ -108,7 +111,7 @@ class DatabaseHelper {
         likes: map['likes'] as int? ?? 0,
         createdAt: DateTime.parse(map['createdAt'] as String),
         tags: tags,
-        isFavorite: true,
+        source: map['source'] as String,
       );
     }).toList();
   }

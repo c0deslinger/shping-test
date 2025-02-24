@@ -1,23 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:shping_test/core/services/database_helper.dart';
+import 'package:shping_test/features/settings/providers/settings_provider.dart';
 import 'package:shping_test/utils/logger.dart';
 import '../../home/data/entities/photo.dart';
 
 class FavoriteProvider with ChangeNotifier {
+  // final SettingsProvider _settingsProvider;
   final DatabaseHelper _databaseHelper;
   List<Photo> _favorites = [];
 
-  FavoriteProvider(this._databaseHelper) {
+  FavoriteProvider(
+    this._databaseHelper,
+    // this._settingsProvider,
+  ) {
     LoggerUtil.i('[Favorite] Initializing FavoriteProvider');
-    _loadFavorites();
+    // _setupImageSourceListener();
   }
 
   List<Photo> get favorites => _favorites;
 
-  Future<void> _loadFavorites() async {
+  Future<void> _loadFavorites(String source) async {
     try {
       LoggerUtil.d('[Favorite] Loading favorites from database');
-      _favorites = await _databaseHelper.getAllFavorites();
+      _favorites = await _databaseHelper.getAllFavorites(source);
       LoggerUtil.i(
           '[Favorite] Loaded ${_favorites.length} favorites from database');
       notifyListeners();
@@ -36,7 +41,6 @@ class FavoriteProvider with ChangeNotifier {
       if (isFavorite) {
         LoggerUtil.d('[Favorite] Removing photo ${photo.id} from favorites');
         await _databaseHelper.removeFavorite(photo.id);
-        photo.isFavorite = false;
         _favorites.removeWhere((p) => p.id == photo.id);
         LoggerUtil.i(
             '[Favorite] Successfully removed photo ${photo.id} from favorites. Remaining: ${_favorites.length}');
@@ -90,8 +94,16 @@ class FavoriteProvider with ChangeNotifier {
   }
 
   // Optional: Add method to refresh favorites
-  Future<void> refreshFavorites() async {
+  Future<void> refreshFavorites(ImageSource imageSource) async {
     LoggerUtil.d('[Favorite] Refreshing favorites list');
-    await _loadFavorites();
+    await _loadFavorites(imageSource.name);
   }
+
+  // /// Called when the image source changes.
+  // void _setupImageSourceListener() {
+  //   _settingsProvider.onImageSourceChanged = () {
+  //     _favorites.clear();
+  //     refreshFavorites(_settingsProvider.imageSource!);
+  //   };
+  // }
 }

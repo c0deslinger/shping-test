@@ -1,7 +1,6 @@
 // lib/app/modules/home/data/datasource/remote/unsplash_api_datasource.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shping_test/core/services/database_helper.dart';
 import 'package:shping_test/features/home/data/datasource/remote/photo_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/data/models/unsplash/unsplash_list_photo_response.dart';
@@ -12,7 +11,6 @@ import 'package:shping_test/utils/logger.dart';
 class UnsplashApiDataSource implements PhotoApiDataSource {
   final String _baseUrl = ConfigReader.getUnsplashApiUrl();
   final String _accessKey = ConfigReader.getUnsplashApiKey();
-  DatabaseHelper favoriteDatabaseHelper = DatabaseHelper.instance;
 
   UnsplashApiDataSource();
 
@@ -38,13 +36,10 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
-        // final photos = jsonData
-        //     .map((json) => UnsplashListPhotoResponse.fromJson(json).toPhoto())
-        //     .toList();
 
         final photos = await Future.wait(jsonData.map((json) async {
           final photo = UnsplashListPhotoResponse.fromJson(json).toPhoto();
-          photo.isFavorite = await favoriteDatabaseHelper.isFavorite(photo.id);
+          photo.source = "unsplash";
           return photo;
         }));
 
@@ -86,14 +81,12 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
         final Map<String, dynamic> data = json.decode(response.body);
         final List<dynamic> results = data['results'];
 
-        // Convert and check favorite status
         final List<Photo> photos = results
             .map((json) => UnsplashListPhotoResponse.fromJson(json).toPhoto())
             .toList();
 
-        // Check favorite status for each photo
         for (var photo in photos) {
-          photo.isFavorite = await favoriteDatabaseHelper.isFavorite(photo.id);
+          photo.source = "unsplash";
         }
 
         LoggerUtil.i(
@@ -131,10 +124,8 @@ class UnsplashApiDataSource implements PhotoApiDataSource {
       if (response.statusCode == 200) {
         final photoResponse =
             UnsplashPhotoDetailResponse.fromJson(json.decode(response.body));
-
-        // Convert to Photo and check favorite status
         final photo = photoResponse.toPhoto();
-        photo.isFavorite = await favoriteDatabaseHelper.isFavorite(id);
+        photo.source = "unsplash";
 
         return photo;
       } else {

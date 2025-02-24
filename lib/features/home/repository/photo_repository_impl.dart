@@ -4,13 +4,14 @@ import 'package:shping_test/features/home/data/datasource/remote/photo_api_datas
 import 'package:shping_test/core/services/connectivity_service.dart';
 import 'package:shping_test/features/home/data/datasource/remote/unsplash_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
+import 'package:shping_test/features/settings/providers/settings_provider.dart';
 import 'photo_repository.dart';
 
 class PhotoRepositoryImpl implements PhotoRepository {
   final PhotoApiDataSource _apiDataSource;
   final PhotoLocalDataSource _localDataSource;
   final ConnectivityService _connectivityService;
-  late String _sourceKey;
+  late ImageSource _sourceKey;
 
   /// Constructor initializes data sources and determines image source key
   PhotoRepositoryImpl({
@@ -20,8 +21,9 @@ class PhotoRepositoryImpl implements PhotoRepository {
   })  : _apiDataSource = apiDataSource,
         _localDataSource = localDataSource,
         _connectivityService = connectivityService {
-    _sourceKey =
-        _apiDataSource is UnsplashApiDataSource ? 'unsplash' : 'pixabay';
+    _sourceKey = _apiDataSource is UnsplashApiDataSource
+        ? ImageSource.unsplash
+        : ImageSource.pixabay;
   }
 
   /// Retrieves photos with fallback to local cache and supports pagination

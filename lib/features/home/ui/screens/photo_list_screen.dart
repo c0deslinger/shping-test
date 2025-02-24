@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shping_test/features/settings/providers/settings_provider.dart';
-import 'package:shping_test/theme/text_styles.dart';
 import 'package:shping_test/core/widgets/error_retry_widget.dart';
 import 'package:shping_test/core/widgets/no_data_available_widget.dart';
 import 'package:shping_test/core/widgets/offline_banner_widget.dart';
@@ -77,7 +76,7 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
     return Scaffold(
       // App bar with title and settings icon
       appBar: AppBar(
-        title: Text('home.title'.tr(), style: AppTextStyle.titleLarge),
+        title: Text('home.title'.tr()),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
       ),

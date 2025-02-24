@@ -1,7 +1,6 @@
 // lib/app/modules/home/data/datasource/remote/pixabay_api_datasource.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shping_test/core/services/database_helper.dart';
 import 'package:shping_test/features/home/data/datasource/remote/photo_api_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
 import 'package:shping_test/features/home/data/models/pixabay/pixabay_list_photo_response.dart';
@@ -12,7 +11,6 @@ import 'package:shping_test/utils/logger.dart';
 class PixabayApiDataSource implements PhotoApiDataSource {
   final String _baseUrl = ConfigReader.getPixabayApiUrl();
   final String _apiKey = ConfigReader.getPixabayApiKey();
-  DatabaseHelper favoriteDatabaseHelper = DatabaseHelper.instance;
 
   @override
   Future<List<Photo>> getPhotos({int page = 1, int perPage = 20}) async {
@@ -42,7 +40,7 @@ class PixabayApiDataSource implements PhotoApiDataSource {
 
         // Check favorite status for each photo
         for (var photo in photos) {
-          photo.isFavorite = await favoriteDatabaseHelper.isFavorite(photo.id);
+          photo.source = 'pixabay';
         }
 
         LoggerUtil.i(
@@ -123,7 +121,7 @@ class PixabayApiDataSource implements PhotoApiDataSource {
 
         // Convert to Photo and check favorite status
         final photo = pixabayResponse.hits!.first.toPhoto();
-        photo.isFavorite = await favoriteDatabaseHelper.isFavorite(id);
+        photo.source = 'pixabay';
 
         return photo;
       } else {

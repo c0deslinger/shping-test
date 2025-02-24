@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shping_test/features/settings/providers/settings_provider.dart';
 import 'package:shping_test/utils/logger.dart';
 import 'package:shping_test/features/home/data/datasource/local/photo_local_datasource.dart';
 import 'package:shping_test/features/home/data/entities/photo.dart';
@@ -17,8 +18,8 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
   }
 
   @override
-  Future<List<Photo>> getPhotos(String sourceKey) async {
-    final key = '${sourceKey}_main_photos';
+  Future<List<Photo>> getPhotos(ImageSource sourceKey) async {
+    final key = '${sourceKey.name}_main_photos';
     try {
       final cachedData = _photosBox.get(key);
       if (cachedData != null) {
@@ -43,11 +44,11 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
 
   @override
   Future<void> cachePhotos(
-    String sourceKey,
+    ImageSource sourceKey,
     List<Photo> photos, {
     required int page,
   }) async {
-    final key = '${sourceKey}_main_photos';
+    final key = '${sourceKey.name}_main_photos';
     try {
       if (page == 1) {
         await _photosBox.put(
@@ -87,8 +88,9 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
   }
 
   @override
-  Future<List<Photo>> getSearchResults(String sourceKey, String query) async {
-    final key = '${sourceKey}_search_$query';
+  Future<List<Photo>> getSearchResults(
+      ImageSource sourceKey, String query) async {
+    final key = '${sourceKey.name}_search_$query';
     try {
       final cachedData = _photosBox.get(key);
       if (cachedData != null) {
@@ -114,12 +116,12 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
 
   @override
   Future<void> cacheSearchResults(
-    String sourceKey,
+    ImageSource sourceKey,
     String query,
     List<Photo> photos, {
     required int page,
   }) async {
-    final key = '${sourceKey}_search_$query';
+    final key = '${sourceKey.name}_search_$query';
     try {
       if (page == 1) {
         await _photosBox.put(
@@ -161,8 +163,8 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
   }
 
   @override
-  Future<Photo?> getPhotoDetails(String sourceKey, String id) async {
-    final key = '${sourceKey}_photo_$id';
+  Future<Photo?> getPhotoDetails(ImageSource sourceKey, String id) async {
+    final key = '${sourceKey.name}_photo_$id';
     try {
       final cachedData = _photosBox.get(key);
       if (cachedData != null) {
@@ -185,8 +187,8 @@ class HiveLocalDataSource implements PhotoLocalDataSource {
   }
 
   @override
-  Future<void> cachePhotoDetails(String sourceKey, Photo photo) async {
-    final key = '${sourceKey}_photo_${photo.id}';
+  Future<void> cachePhotoDetails(ImageSource sourceKey, Photo photo) async {
+    final key = '${sourceKey.name}_photo_${photo.id}';
     try {
       await _photosBox.put(key, jsonEncode(photo.toJson()));
       LoggerUtil.i('[HiveDataSource] Cached photo details for ID: ${photo.id}');

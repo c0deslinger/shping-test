@@ -26,22 +26,21 @@ class Photo {
   /// List of tags associated with the photo
   final List<String> tags;
 
-  /// Flag to indicate if the photo is marked as a favorite
-  bool isFavorite;
+  /// Source of photo
+  String? source;
 
   /// Constructor with named parameters and default values
-  Photo({
-    required this.id,
-    required this.url,
-    required this.smallUrl,
-    required this.title,
-    required this.photographer,
-    this.description = '',
-    this.likes = 0,
-    required this.createdAt,
-    this.tags = const [],
-    this.isFavorite = false,
-  });
+  Photo(
+      {required this.id,
+      required this.url,
+      required this.smallUrl,
+      required this.title,
+      required this.photographer,
+      this.description = '',
+      this.likes = 0,
+      required this.createdAt,
+      this.source,
+      this.tags = const []});
 
   /// Creates a Photo instance from a JSON map with flexible parsing
   factory Photo.fromJson(Map<String, dynamic> json) {
@@ -80,7 +79,7 @@ class Photo {
       tags: _parseTags(json),
 
       // Default favorite status
-      isFavorite: json['isFavorite'] ?? false,
+      source: json['source'],
     );
   }
 
@@ -96,7 +95,7 @@ class Photo {
       'likes': likes,
       'createdAt': createdAt.toIso8601String(),
       'tags': tags,
-      'isFavorite': isFavorite,
+      'isFavorite': source,
     };
   }
 
@@ -209,6 +208,7 @@ class Photo {
     String? title,
     String? photographer,
     String? description,
+    String? source,
     int? likes,
     DateTime? createdAt,
     List<String>? tags,
@@ -224,7 +224,7 @@ class Photo {
       likes: likes ?? this.likes,
       createdAt: createdAt ?? this.createdAt,
       tags: tags ?? this.tags,
-      isFavorite: isFavorite ?? this.isFavorite,
+      source: source ?? this.source,
     );
   }
 }
